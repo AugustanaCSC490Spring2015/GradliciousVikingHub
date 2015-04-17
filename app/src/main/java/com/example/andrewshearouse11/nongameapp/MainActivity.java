@@ -1,16 +1,19 @@
 package com.example.andrewshearouse11.nongameapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     ImageButton campusTourButton;
     ImageButton campusMapButton;
@@ -20,10 +23,11 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //establish ImageView objects
-        campusTourButton = (ImageButton) findViewById();
-        campusMapButton = (ImageButton) findViewById();
-        eventsCalendarButton = (ImageButton) findViewById();
+        campusTourButton = (ImageButton) findViewById(R.id.tourButton);
+        campusMapButton = (ImageButton) findViewById(R.id.mapButton);
+        eventsCalendarButton = (ImageButton) findViewById(R.id.eventsButton);
 
         //set the click listeners
         setListeners();
