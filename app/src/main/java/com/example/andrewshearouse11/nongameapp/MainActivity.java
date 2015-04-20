@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
         campusTourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent campusTour = new Intent(getBaseContext(), CampusTour.class);
+                Intent campusTour = new Intent(getBaseContext(), AugustanaCampusTour.class);
                 startActivity(campusTour);
             }
         });

@@ -20,6 +20,13 @@
         <activity android:name=".CampusMap"
             android:label="Campus Map"/>
 
+        <activity android:name=".AugustanaCampusTour"
+            android:label="Campus Tour"/>
+
+        <activity android:name=".EventsCalendar"
+            android:label="Events Calendar"/>
+
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
