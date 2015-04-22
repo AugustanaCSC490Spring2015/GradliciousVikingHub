@@ -20,27 +20,31 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import android.os.AsyncTask.*;
 
 /**
  * Created by Ethan on 4/16/2015.
+ * Added code to experiment with XML - Andy
  */
 
 public class EventsCalendar extends Activity {
+
+        String urlString = "http://www.augustana.edu/x11818.xml";
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
 
             super.onCreate(savedInstanceState);
             //setContentView(R.layout.events_calendar);
-
-            String urlString = "http://www.augustana.edu/x11818.xml";
-
-
         }
 
-    //XML Parser from http://developer.android.com/training/basics/network-ops/xml.html
+    public void loadFeed(){
+        new DownloadXmlTask().execute(urlString);
 
     }
+
+    //XML Parser from http://developer.android.com/training/basics/network-ops/xml.html
+}
 
 
 

@@ -28,13 +28,14 @@ import java.util.List;
  * This class parses XML feeds from stackoverflow.com.
  * Given an InputStream representation of a feed, it returns a List of entries,
  * where each list element represents a single entry (post) in the XML feed.
+ * Edited the code slightly to try to troubleshoot the XML parsing issues -Andy
  */
 public class XmlParser {
     private static final String ns = null;
 
     // We don't use namespaces
 
-    public List<Entry> parse(InputStream in) throws XmlPullParserException, IOException {
+    public List parse(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -46,8 +47,8 @@ public class XmlParser {
         }
     }
 
-    private List<Entry> readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
-        List<Entry> entries = new ArrayList<Entry>();
+    private List readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
+        List entries = new ArrayList();
 
         parser.require(XmlPullParser.START_TAG, ns, "feed");
         while (parser.next() != XmlPullParser.END_TAG) {
