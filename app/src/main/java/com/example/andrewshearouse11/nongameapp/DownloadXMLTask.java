@@ -1,11 +1,20 @@
 package com.example.andrewshearouse11.nongameapp;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.text.format.DateFormat;
+import android.webkit.WebView;
+
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by andrewshearouse11 on 4/22/2015.
@@ -34,8 +43,8 @@ public class DownloadXMLTask extends AsyncTask<String, Void, String> {
     private String loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
         InputStream stream = null;
         // Instantiate the parser
-        StackOverflowXmlParser stackOverflowXmlParser = new StackOverflowXmlParser();
-        List<Entry> entries = null;
+        XmlParser stackOverflowXmlParser = new XmlParser();
+        List entries = null;
         String title = null;
         String url = null;
         String summary = null;
