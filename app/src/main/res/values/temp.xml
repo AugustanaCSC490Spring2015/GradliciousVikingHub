@@ -1,18 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="resource">
-        <string name="productname">Jeans</string>
-        <string name="productcolor">red</string>
-        <string name="productquantity">5</string>
-    </string>
-    <string name="resource">
-        <string name="productname">Tshirt</string>
-        <string name="productcolor">blue</string>
-        <string name="productquantity">3</string>
-    </string>
-    <string name="resource">
-        <string name="productname">shorts</string>
-        <string name="productcolor">green</string>
-        <string name="productquantity">4</string>
-    </string>
+
 </resources>
