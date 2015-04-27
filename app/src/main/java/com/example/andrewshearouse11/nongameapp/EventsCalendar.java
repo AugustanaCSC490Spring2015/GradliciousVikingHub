@@ -39,7 +39,7 @@ public class EventsCalendar extends Activity {
         }
 
     public void loadFeed(){
-        new DownloadXmlTask().execute(urlString);
+        //new DownloadXmlTask().execute(urlString);
 
     }
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +12,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -21,6 +29,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -29,8 +38,31 @@ public class MainActivity extends Activity {
         campusMapButton = (ImageButton) findViewById(R.id.mapButton);
         eventsCalendarButton = (ImageButton) findViewById(R.id.eventsButton);
 
-        //set the click listeners
-        setListeners();
+        /* TEST CODE FOR SAVING/CREATING NEW PARSE OBJECT
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
+        */
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("AcademicBuildings");
+        query.findInBackground(new FindCallback<ParseObject>() {
+                                   @Override
+                                   public void done(List<ParseObject> parseObjects, ParseException e) {
+                                       if(e==null){
+                                           int i = 0;
+                                           while(i < parseObjects.size()){
+                                               Log.d("info", "Building " + parseObjects.get(i));
+                                               Log.d("info", "ID:" + parseObjects.get(i).getObjectId());
+                                               Log.d("info", "NAME: " + parseObjects.get(i).getString("Name"));
+                                               i++;
+                                           }
+                                       }else{
+                                           Log.d("info", "Sad Panda");
+                                       }
+                                   }
+                               });
+
+                //set the click listeners
+                setListeners();
     }
 
     private void setListeners(){
