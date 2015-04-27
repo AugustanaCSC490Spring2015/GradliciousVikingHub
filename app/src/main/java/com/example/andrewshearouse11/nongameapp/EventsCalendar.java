@@ -48,7 +48,7 @@ public class EventsCalendar extends Activity {
             try{
                 pullParserFactory = XmlPullParserFactory.newInstance();
                 XmlPullParser parser = pullParserFactory.newPullParser();
-                InputStream in_s = new URL("http://www.augustana.edu/students/andy-shearouse/test.xml").openStream();
+                InputStream in_s = getResources().openRawResource(R.raw.temp);
                 parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
                 parser.setInput(in_s, null);
                 parseXML(parser);
