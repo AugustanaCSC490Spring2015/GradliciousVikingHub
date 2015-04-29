@@ -50,9 +50,10 @@ public class MainActivity extends Activity {
                                        if(e==null){
                                            int i = 0;
                                            while(i < parseObjects.size()){
-                                               Log.d("info", "Building " + parseObjects.get(i));
-                                               Log.d("info", "ID:" + parseObjects.get(i).getObjectId());
-                                               Log.d("info", "NAME: " + parseObjects.get(i).getString("Name"));
+                                               Log.d("info", "BUILDING NAME: " + parseObjects.get(i).getString("buildingName"));
+                                               Log.d("info", "YEAR OPENED: " + parseObjects.get(i).getInt("yearOpened"));
+                                               Log.d("info", "MAJORS: " + parseObjects.get(i).getString("majors"));
+                                               Log.d("info", "BUILDING SERVICES: " + parseObjects.get(i).getString("buildingServices"));
                                                i++;
                                            }
                                        }else{
