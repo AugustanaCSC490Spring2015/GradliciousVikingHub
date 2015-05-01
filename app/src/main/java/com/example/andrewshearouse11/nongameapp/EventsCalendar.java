@@ -73,14 +73,14 @@ public class EventsCalendar extends Activity {
                         break;
                     case XmlPullParser.START_TAG:
                         name = parser.getName();
-                        if (name == "resource"){
+                        if (name.equals("product")){
                             currentProduct = new ProductTest();
                         } else if (currentProduct != null){
-                            if (name == "productname"){
+                            if (name.equals("productname")){
                                 currentProduct.name = parser.nextText();
-                            } else if (name == "productcolor"){
+                            } else if (name.equals("productcolor")){
                                 currentProduct.color = parser.nextText();
-                            } else if (name == "productquantity"){
+                            } else if (name.equals("productquantity")){
                                 currentProduct.quantity= parser.nextText();
                             }
                         }
@@ -104,9 +104,9 @@ public class EventsCalendar extends Activity {
         while(it.hasNext())
         {
             ProductTest currProduct  = it.next();
-            content = content + "nnnProduct :" +  currProduct.name + "n";
-            content = content + "Quantity :" +  currProduct.quantity + "n";
-            content = content + "Color :" +  currProduct.color + "n";
+            content = content + "Product :" +  currProduct.name + "\n";
+            content = content + "Quantity :" +  currProduct.quantity + "\n";
+            content = content + "Color :" +  currProduct.color + "\n \n";
 
         }
 
