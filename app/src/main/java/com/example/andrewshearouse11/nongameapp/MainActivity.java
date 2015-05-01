@@ -2,6 +2,7 @@ package com.example.andrewshearouse11.nongameapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -41,9 +42,14 @@ public class MainActivity extends Activity {
 
         final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
         campusTourButton.setTypeface(font);
+        campusTourButton.setTextSize(24);
+        campusTourButton.setTextColor(Color.WHITE);
         campusMapButton.setTypeface(font);
+        campusMapButton.setTextSize(24);
+        campusMapButton.setTextColor(Color.WHITE);
         eventsCalendarButton.setTypeface(font);
-
+        eventsCalendarButton.setTextSize(24);
+        eventsCalendarButton.setTextColor(Color.WHITE);
 
 
         /* TEST CODE FOR SAVING/CREATING NEW PARSE OBJECT

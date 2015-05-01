@@ -29,15 +29,17 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
     Marker markerCollegeCenter;
     Marker markerLibrary;
 
-    LatLng hansonLatLng;
-    LatLng olinLatLng;
-    LatLng denkmannLatLng;
-    LatLng oldMainLatLng;
-    LatLng evaldLatLng;
-    LatLng bergendoffLatLng;
-    LatLng centennailLatLng;
-    LatLng collegeCenterLatLng;
-    LatLng libraryLatLng;
+    Building hansonBuilding;
+    Building olinBuilding;
+    Building denkmannBuilding;
+    Building oldMainBuilding;
+    Building evaldBuilding;
+    Building bergendoffBuilding;
+    Building centennialBuilding;
+    Building collegeCenterBuilding;
+    Building libraryBuilding;
+
+    ArrayList<Building> buildingArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,25 +65,35 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
         //set onMyLocationChangeListener
         mainMap.setOnMyLocationChangeListener(onMyLocationChange);
 
-        hansonLatLng = new LatLng(41.503743, -90.551306);
-        olinLatLng = new LatLng(41.503118, -90.550580);
-        denkmannLatLng = new LatLng(41.504452, -90.550603);
-        oldMainLatLng = new LatLng(41.504345, -90.549501);
-        evaldLatLng = new LatLng(41.505120, -90.550086);
-        bergendoffLatLng = new LatLng(41.505453, -90.549239);
-        centennailLatLng = new LatLng(41.505099, -90.548690);
-        collegeCenterLatLng = new LatLng(41.504345, -90.548235);
-        libraryLatLng = new LatLng(41.502316, -90.550134);
+        hansonBuilding = new Building("Hanson Hall of Science",new LatLng(41.503743, -90.551306));
+        olinBuilding = new Building("Olin Center",new LatLng(41.503118, -90.550580));
+        denkmannBuilding = new Building("Denkmann",new LatLng(41.504452, -90.550603));
+        oldMainBuilding = new Building("Old Main",new LatLng(41.504345, -90.549501));
+        evaldBuilding = new Building("Evald Hall",new LatLng(41.505120, -90.550086));
+        bergendoffBuilding = new Building("Bergendoff Hall",new LatLng(41.505453, -90.549239));
+        centennialBuilding = new Building("Centennial Hall",new LatLng(41.505099, -90.548690));
+        collegeCenterBuilding = new Building("College Center",new LatLng(41.504345, -90.548235));
+        libraryBuilding = new Building("Thomas Tredway Library",new LatLng(41.502316, -90.550134));
 
-        markerHanson = mainMap.addMarker(new MarkerOptions().position(hansonLatLng).visible(false));
-        markerOlin = mainMap.addMarker(new MarkerOptions().position(olinLatLng).visible(false));
-        markerDenkmann = mainMap.addMarker(new MarkerOptions().position(denkmannLatLng).visible(false));
-        markerOldmain = mainMap.addMarker(new MarkerOptions().position(oldMainLatLng).visible(false));
-        markerEvald = mainMap.addMarker(new MarkerOptions().position(evaldLatLng).visible(false));
-        markerBerg = mainMap.addMarker(new MarkerOptions().position(bergendoffLatLng).visible(false));
-        markerCent = mainMap.addMarker(new MarkerOptions().position(centennailLatLng).visible(false));
-        markerCollegeCenter = mainMap.addMarker(new MarkerOptions().position(collegeCenterLatLng).visible(false));
-        markerLibrary = mainMap.addMarker(new MarkerOptions().position(libraryLatLng).visible(false));
+        buildingArrayList.add(hansonBuilding);
+        buildingArrayList.add(olinBuilding);
+        buildingArrayList.add(denkmannBuilding);
+        buildingArrayList.add(oldMainBuilding);
+        buildingArrayList.add(evaldBuilding);
+        buildingArrayList.add(bergendoffBuilding);
+        buildingArrayList.add(centennialBuilding);
+        buildingArrayList.add(collegeCenterBuilding);
+        buildingArrayList.add(libraryBuilding);
+
+        markerHanson = mainMap.addMarker(new MarkerOptions().position(hansonBuilding.getLatLng()).visible(false));
+        markerOlin = mainMap.addMarker(new MarkerOptions().position(olinBuilding.getLatLng()).visible(false));
+        markerDenkmann = mainMap.addMarker(new MarkerOptions().position(denkmannBuilding.getLatLng()).visible(false));
+        markerOldmain = mainMap.addMarker(new MarkerOptions().position(oldMainBuilding.getLatLng()).visible(false));
+        markerEvald = mainMap.addMarker(new MarkerOptions().position(evaldBuilding.getLatLng()).visible(false));
+        markerBerg = mainMap.addMarker(new MarkerOptions().position(bergendoffBuilding.getLatLng()).visible(false));
+        markerCent = mainMap.addMarker(new MarkerOptions().position(centennialBuilding.getLatLng()).visible(false));
+        markerCollegeCenter = mainMap.addMarker(new MarkerOptions().position(collegeCenterBuilding.getLatLng()).visible(false));
+        markerLibrary = mainMap.addMarker(new MarkerOptions().position(libraryBuilding.getLatLng()).visible(false));
 
     }
 
@@ -188,61 +200,14 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
     //populates nearBuildings listView with buildings that are within radius
     public void buildingsInRadius(Location location){
 
-        if (inRadius(location, hansonLatLng, 40)) {
-            //add to near buildings list view
-            Toast.makeText(getBaseContext(),"AT HANSON" , Toast.LENGTH_SHORT) .show();
-        } else {
-            //if in near buildings list view remove from near buildings list view
+        for(Building building : buildingArrayList) {
+            if (inRadius(location, building.getLatLng(), 40)) {
+                //add to near buildings list view
+                Toast.makeText(getBaseContext(), building.getBuildingName() , Toast.LENGTH_SHORT).show();
+            } else {
+                //if in near buildings list view remove from near buildings list view
+            }
         }
-        if (inRadius(location, olinLatLng, 40)) {
-            //add to near buildings list view
-            Toast.makeText(getBaseContext(),"AT HANSON" , Toast.LENGTH_SHORT) .show();
-        } else {
-            //if in near buildings list view remove from near buildings list view
-        }
-        if (inRadius(location, denkmannLatLng, 40)) {
-            //add to near buildings list view
-            Toast.makeText(getBaseContext(),"AT HANSON" , Toast.LENGTH_SHORT) .show();
-        } else {
-            //if in near buildings list view remove from near buildings list view
-        }
-        if (inRadius(location, oldMainLatLng, 40)) {
-            //add to near buildings list view
-            Toast.makeText(getBaseContext(),"AT HANSON" , Toast.LENGTH_SHORT) .show();
-        } else {
-            //if in near buildings list view remove from near buildings list view
-        }
-        if (inRadius(location, evaldLatLng, 40)) {
-            //add to near buildings list view
-            Toast.makeText(getBaseContext(),"AT HANSON" , Toast.LENGTH_SHORT) .show();
-        } else {
-            //if in near buildings list view remove from near buildings list view
-        }
-        if (inRadius(location, bergendoffLatLng, 40)) {
-            //add to near buildings list view
-            Toast.makeText(getBaseContext(),"AT HANSON" , Toast.LENGTH_SHORT) .show();
-        } else {
-            //if in near buildings list view remove from near buildings list view
-        }
-        if (inRadius(location, centennailLatLng, 40)) {
-            //add to near buildings list view
-            Toast.makeText(getBaseContext(),"AT HANSON" , Toast.LENGTH_SHORT) .show();
-        } else {
-            //if in near buildings list view remove from near buildings list view
-        }
-        if (inRadius(location, collegeCenterLatLng, 40)) {
-            //add to near buildings list view
-            Toast.makeText(getBaseContext(),"AT HANSON" , Toast.LENGTH_SHORT) .show();
-        } else {
-            //if in near buildings list view remove from near buildings list view
-        }
-        if (inRadius(location, libraryLatLng, 40)) {
-            //add to near buildings list view
-            Toast.makeText(getBaseContext(),"AT HANSON" , Toast.LENGTH_SHORT) .show();
-        } else {
-            //if in near buildings list view remove from near buildings list view
-        }
-
     }
 
     //returns true if checkLocation is within specified radius of centerLocation
