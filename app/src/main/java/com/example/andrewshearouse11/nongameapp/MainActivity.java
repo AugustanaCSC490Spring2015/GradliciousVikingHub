@@ -2,6 +2,7 @@ package com.example.andrewshearouse11.nongameapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.parse.FindCallback;
@@ -23,9 +24,9 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
-    ImageButton campusTourButton;
-    ImageButton campusMapButton;
-    ImageButton eventsCalendarButton;
+    Button campusTourButton;
+    Button campusMapButton;
+    Button eventsCalendarButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,16 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         //establish ImageView objects
-        campusTourButton = (ImageButton) findViewById(R.id.tourButton);
-        campusMapButton = (ImageButton) findViewById(R.id.mapButton);
-        eventsCalendarButton = (ImageButton) findViewById(R.id.eventsButton);
+        campusTourButton = (Button) findViewById(R.id.tourButton);
+        campusMapButton = (Button) findViewById(R.id.mapButton);
+        eventsCalendarButton = (Button) findViewById(R.id.eventsButton);
+
+        final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
+        campusTourButton.setTypeface(font);
+        campusMapButton.setTypeface(font);
+        eventsCalendarButton.setTypeface(font);
+
+
 
         /* TEST CODE FOR SAVING/CREATING NEW PARSE OBJECT
         ParseObject testObject = new ParseObject("TestObject");
