@@ -54,7 +54,7 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.campus_tour_layout);
 
-        listViewArrayListManager = new ListViewArrayListManager();
+        listViewArrayListManager = new ListViewArrayListManager(getBaseContext());
         defaultBuildingsArrayList = listViewArrayListManager.getDefaultBuildingsArrayList();
 
         //Setup Map Fragment

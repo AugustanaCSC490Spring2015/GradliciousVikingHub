@@ -57,24 +57,7 @@ public class MainActivity extends Activity {
         testObject.put("foo", "bar");
         testObject.saveInBackground();
         */
-        final ParseQuery<ParseObject> query = ParseQuery.getQuery("AcademicBuildings");
-        query.findInBackground(new FindCallback<ParseObject>() {
-                                   @Override
-                                   public void done(List<ParseObject> parseObjects, ParseException e) {
-                                       if(e==null){
-                                           int i = 0;
-                                           while(i < parseObjects.size()){
-                                               Log.d("info", "BUILDING NAME: " + parseObjects.get(i).getString("buildingName"));
-                                               Log.d("info", "YEAR OPENED: " + parseObjects.get(i).getInt("yearOpened"));
-                                               Log.d("info", "MAJORS: " + parseObjects.get(i).getString("majors"));
-                                               Log.d("info", "BUILDING SERVICES: " + parseObjects.get(i).getString("buildingServices"));
-                                               i++;
-                                           }
-                                       }else{
-                                           Log.d("info", "Sad Panda");
-                                       }
-                                   }
-                               });
+
 
                 //set the click listeners
                 setListeners();

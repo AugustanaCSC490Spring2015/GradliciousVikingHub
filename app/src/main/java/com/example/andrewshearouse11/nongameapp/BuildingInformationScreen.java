@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -41,6 +43,26 @@ public class BuildingInformationScreen extends Activity{
         buildingInformationTextView.setTextSize(18);
         buildingInformationTextView.setTextColor(Color.parseColor("#151515"));
         buildingInformationTextView.setText(buildingInfo);
+
+        setBuildingImage();
+
+    }
+
+    public void setBuildingImage(){
+        ImageView buildingImageView = (ImageView) findViewById(R.id.buildingImageView);
+
+        String buildingImageName;
+        if(buildingName.contains(" ")) {
+            buildingImageName = buildingName.substring(0, buildingName.indexOf(" "));
+        }else{
+            buildingImageName = buildingName;
+        }
+
+        if(buildingImageName.equals("Hanson")){
+            buildingImageView.setImageResource(R.mipmap.hanson);
+        }else if(buildingImageName.equals("Thomas")){
+            buildingImageView.setImageResource(R.mipmap.library);
+        }
     }
 
 

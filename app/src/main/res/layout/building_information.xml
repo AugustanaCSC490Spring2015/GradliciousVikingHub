@@ -14,7 +14,7 @@
             android:id="@+id/buildingImageView"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/library"
+            android:src="@mipmap/defaultbuildingimage"
             android:scaleType="centerCrop" />
 
         <Space

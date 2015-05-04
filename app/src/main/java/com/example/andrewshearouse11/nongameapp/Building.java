@@ -32,7 +32,7 @@ public class Building {
         return buildingName;
     }
     public String getBuildingInfo(){
-        return "BUILDING INFORMATION";
+        return buildingInfo;
     }
     public Boolean equals(Building testBuilding){
         return buildingName.equals(testBuilding.getBuildingName());
