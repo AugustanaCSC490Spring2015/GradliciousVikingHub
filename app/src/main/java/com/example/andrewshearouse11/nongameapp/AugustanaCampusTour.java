@@ -1,11 +1,14 @@
 package com.example.andrewshearouse11.nongameapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Window;
-import android.view.WindowManager;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.*;
@@ -39,20 +42,27 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
     Building collegeCenterBuilding;
     Building libraryBuilding;
 
-    ArrayList<Building> buildingArrayList;
+    ArrayList<Building> defaultBuildingsArrayList;
+    ArrayAdapter<Building> arrayAdapter;
+
+    ListView listView;
+    ListViewArrayListManager listViewArrayListManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.campus_map_layout);
+        setContentView(R.layout.campus_tour_layout);
+
+        listViewArrayListManager = new ListViewArrayListManager();
+        defaultBuildingsArrayList = listViewArrayListManager.getDefaultBuildingsArrayList();
 
         //Setup Map Fragment
-        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapviewfragment);
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapviewtourfragment);
         mapFragment.getMapAsync(this);
 
-
-
+        listView = (ListView) findViewById(R.id.buildingListView);
+        setUpListView();
     }
 
     @Override
@@ -65,26 +75,7 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
         //set onMyLocationChangeListener
         mainMap.setOnMyLocationChangeListener(onMyLocationChange);
 
-        hansonBuilding = new Building("Hanson Hall of Science",new LatLng(41.503743, -90.551306));
-        olinBuilding = new Building("Olin Center",new LatLng(41.503118, -90.550580));
-        denkmannBuilding = new Building("Denkmann",new LatLng(41.504452, -90.550603));
-        oldMainBuilding = new Building("Old Main",new LatLng(41.504345, -90.549501));
-        evaldBuilding = new Building("Evald Hall",new LatLng(41.505120, -90.550086));
-        bergendoffBuilding = new Building("Bergendoff Hall",new LatLng(41.505453, -90.549239));
-        centennialBuilding = new Building("Centennial Hall",new LatLng(41.505099, -90.548690));
-        collegeCenterBuilding = new Building("College Center",new LatLng(41.504345, -90.548235));
-        libraryBuilding = new Building("Thomas Tredway Library",new LatLng(41.502316, -90.550134));
-
-        buildingArrayList.add(hansonBuilding);
-        buildingArrayList.add(olinBuilding);
-        buildingArrayList.add(denkmannBuilding);
-        buildingArrayList.add(oldMainBuilding);
-        buildingArrayList.add(evaldBuilding);
-        buildingArrayList.add(bergendoffBuilding);
-        buildingArrayList.add(centennialBuilding);
-        buildingArrayList.add(collegeCenterBuilding);
-        buildingArrayList.add(libraryBuilding);
-
+        /*
         markerHanson = mainMap.addMarker(new MarkerOptions().position(hansonBuilding.getLatLng()).visible(false));
         markerOlin = mainMap.addMarker(new MarkerOptions().position(olinBuilding.getLatLng()).visible(false));
         markerDenkmann = mainMap.addMarker(new MarkerOptions().position(denkmannBuilding.getLatLng()).visible(false));
@@ -94,7 +85,7 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
         markerCent = mainMap.addMarker(new MarkerOptions().position(centennialBuilding.getLatLng()).visible(false));
         markerCollegeCenter = mainMap.addMarker(new MarkerOptions().position(collegeCenterBuilding.getLatLng()).visible(false));
         markerLibrary = mainMap.addMarker(new MarkerOptions().position(libraryBuilding.getLatLng()).visible(false));
-
+        */
     }
 
 
@@ -108,6 +99,26 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
             //buildingsInBounds(location);
         }
     };
+
+    public ListView.OnItemClickListener listViewItemClickListener = new ListView.OnItemClickListener(){
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+            Log.w(Integer.toString(position),"-Position");
+            Intent buildingInformation = new Intent(getBaseContext(), BuildingInformationScreen.class);
+            buildingInformation.putExtra("buildingName", listViewArrayListManager.getBuilding(position).getBuildingName());
+            buildingInformation.putExtra("buildingInfo", listViewArrayListManager.getBuilding(position).getBuildingInfo());
+            startActivity(buildingInformation);
+        }
+    };
+
+    private void setUpListView(){
+        arrayAdapter = new ArrayAdapter<Building>(
+                this,
+                android.R.layout.simple_list_item_1,
+                listViewArrayListManager.getMainArrayList());
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(listViewItemClickListener);
+    }
 
     public void buildingsInBounds(Location location){
         //Hanson Hall
@@ -200,12 +211,11 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
     //populates nearBuildings listView with buildings that are within radius
     public void buildingsInRadius(Location location){
 
-        for(Building building : buildingArrayList) {
+        for(Building building : defaultBuildingsArrayList) {
             if (inRadius(location, building.getLatLng(), 40)) {
-                //add to near buildings list view
-                Toast.makeText(getBaseContext(), building.getBuildingName() , Toast.LENGTH_SHORT).show();
+                listViewArrayListManager.addProximateBuilding(building);
             } else {
-                //if in near buildings list view remove from near buildings list view
+                listViewArrayListManager.removeProximateBuilding(building);
             }
         }
     }

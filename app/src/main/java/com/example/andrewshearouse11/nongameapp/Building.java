@@ -9,10 +9,17 @@ public class Building {
 
     String buildingName;
     LatLng buildingLatLng;
+    String buildingInfo;
 
     public Building(String buildingName, LatLng buildingLatLng){
         this.buildingName = buildingName;
         this.buildingLatLng = buildingLatLng;
+        this.buildingInfo = "";
+    }
+    public Building(String buildingName, LatLng buildingLatLng, String buildingInfo){
+        this.buildingName = buildingName;
+        this.buildingLatLng = buildingLatLng;
+        this.buildingInfo = buildingInfo;
     }
 
     public LatLng getLatLng(){
@@ -21,8 +28,14 @@ public class Building {
     public String getBuildingName(){
         return buildingName;
     }
+    public String toString(){
+        return buildingName;
+    }
     public String getBuildingInfo(){
         return "BUILDING INFORMATION";
+    }
+    public Boolean equals(Building testBuilding){
+        return buildingName.equals(testBuilding.getBuildingName());
     }
 
 }
