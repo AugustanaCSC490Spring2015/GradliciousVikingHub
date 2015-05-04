@@ -33,7 +33,6 @@ public class ListViewArrayListManager {
     }
 
     private void populateDefault(){
-        pullFromParse();
         mainArrayList.add(new Building("Denkmann", new LatLng(41.504452, -90.550603)));
         mainArrayList.add(new Building("Old Main", new LatLng(41.504345, -90.549501)));
         mainArrayList.add(new Building("Evald Hall", new LatLng(41.505120, -90.550086)));

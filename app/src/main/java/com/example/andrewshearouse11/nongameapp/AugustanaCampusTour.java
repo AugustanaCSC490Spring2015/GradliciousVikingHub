@@ -107,6 +107,8 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
             Intent buildingInformation = new Intent(getBaseContext(), BuildingInformationScreen.class);
             buildingInformation.putExtra("buildingName", listViewArrayListManager.getBuilding(position).getBuildingName());
             buildingInformation.putExtra("buildingInfo", listViewArrayListManager.getBuilding(position).getBuildingInfo());
+            buildingInformation.putExtra("builingLat", listViewArrayListManager.getBuilding(position).getLatLng().latitude);
+            buildingInformation.putExtra("builingLng", listViewArrayListManager.getBuilding(position).getLatLng().longitude);
             startActivity(buildingInformation);
         }
     };

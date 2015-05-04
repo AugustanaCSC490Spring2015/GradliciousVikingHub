@@ -1,6 +1,7 @@
 package com.example.andrewshearouse11.nongameapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -16,12 +17,18 @@ import com.google.android.gms.maps.model.*;
 public class CampusMap extends Activity implements OnMapReadyCallback {
 
     GoogleMap mainMap;
+    String buildingLat;
+    String buildingLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.campus_map_layout);
+
+        Intent intent = getIntent();
+        buildingLat = intent.getStringExtra("buildingLat");
+        buildingLng = intent.getStringExtra("buildingLng");
 
         //Setup Map Fragment
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapviewfragment);
@@ -38,6 +45,11 @@ public class CampusMap extends Activity implements OnMapReadyCallback {
 
         //set onMyLocationChangeListener
         mainMap.setOnMyLocationChangeListener(onMyLocationChange);
+
+
+        if(!buildingLat.isEmpty()){
+            mainMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(buildingLat), Double.parseDouble(buildingLng))));
+        }
     }
 
 

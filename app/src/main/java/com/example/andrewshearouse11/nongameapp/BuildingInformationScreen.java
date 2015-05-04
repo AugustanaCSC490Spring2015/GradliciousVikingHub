@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,8 @@ public class BuildingInformationScreen extends Activity{
 
     String buildingName;
     String buildingInfo;
+    String buildingLat;
+    String buildingLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public class BuildingInformationScreen extends Activity{
         Intent intent = getIntent();
         buildingName = intent.getStringExtra("buildingName");
         buildingInfo = intent.getStringExtra("buildingInfo");
+        buildingLat = intent.getStringExtra("buildingLat");
+        buildingLng = intent.getStringExtra("buildingLng");
 
         final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
 
@@ -44,9 +50,22 @@ public class BuildingInformationScreen extends Activity{
         buildingInformationTextView.setTextColor(Color.parseColor("#151515"));
         buildingInformationTextView.setText(buildingInfo);
 
+        Button showOnMapButton = (Button) findViewById(R.id.showOnMapButton);
+        showOnMapButton.setTypeface(font);
+        showOnMapButton.setTextSize(18);
+        showOnMapButton.setTextColor(Color.parseColor("#151515"));
+        showOnMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent campusMap = new Intent(getBaseContext(), CampusMap.class);
+                campusMap.putExtra("Latitude",buildingLat);
+                campusMap.putExtra("Longitude", buildingLng);
+                startActivity(campusMap);
+            }
+        });
         setBuildingImage();
-
     }
+
 
     public void setBuildingImage(){
         ImageView buildingImageView = (ImageView) findViewById(R.id.buildingImageView);

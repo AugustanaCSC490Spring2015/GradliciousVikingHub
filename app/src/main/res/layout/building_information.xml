@@ -49,6 +49,21 @@
             android:id="@+id/buildingInformatin"
             android:paddingLeft="5dp" />
 
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show on Map"
+            android:id="@+id/showOnMapButton"
+            android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 
 </RelativeLayout>
