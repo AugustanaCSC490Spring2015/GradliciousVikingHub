@@ -107,8 +107,8 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
             Intent buildingInformation = new Intent(getBaseContext(), BuildingInformationScreen.class);
             buildingInformation.putExtra("buildingName", listViewArrayListManager.getBuilding(position).getBuildingName());
             buildingInformation.putExtra("buildingInfo", listViewArrayListManager.getBuilding(position).getBuildingInfo());
-            buildingInformation.putExtra("builingLat", listViewArrayListManager.getBuilding(position).getLatLng().latitude);
-            buildingInformation.putExtra("builingLng", listViewArrayListManager.getBuilding(position).getLatLng().longitude);
+            buildingInformation.putExtra("buildingLat", listViewArrayListManager.getBuilding(position).getLatLng().latitude);
+            buildingInformation.putExtra("buildingLng", listViewArrayListManager.getBuilding(position).getLatLng().longitude);
             startActivity(buildingInformation);
         }
     };
@@ -122,102 +122,18 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
         listView.setOnItemClickListener(listViewItemClickListener);
     }
 
-    public void buildingsInBounds(Location location){
-        //Hanson Hall
-        if(inBounds(location, new LatLng(41.503208, -90.551755), new LatLng(41.504304, -90.550639))){
-            //Toast.makeText(getBaseContext(), "At Hanson", Toast.LENGTH_LONG) .show();
-            markerHanson.setVisible(true);
-        }else{
-            if(markerHanson.isVisible()){
-                markerHanson.setVisible(false);
-            }
-        }
-
-        // Olin
-        if(inBounds(location, new LatLng(41.502934, -90.551041), new LatLng(41.503577, -90.550177))){
-            //Toast.makeText(getBaseContext(), "At Olin", Toast.LENGTH_LONG) .show();
-            markerOlin.setVisible(true);
-        }else{
-            if(markerOlin.isVisible()){
-                markerOlin.setVisible(false);
-            }
-        }
-
-        // Denkmann Hall
-        if(inBounds(location, new LatLng(41.504224, -90.550971), new LatLng(41.504714, -90.550183))){
-            markerDenkmann.setVisible(true);
-        }else{
-            if(markerDenkmann.isVisible()){
-                markerDenkmann.setVisible(false);
-            }
-        }
-
-        // Old Main
-        if(inBounds(location, new LatLng(41.504019, -90.549963), new LatLng(41.504694, -90.548981))){
-            markerOldmain.setVisible(true);
-        }else{
-            if(markerOldmain.isVisible()){
-                markerOldmain.setVisible(false);
-            }
-        }
-
-        // Evald Hall
-        if(inBounds(location, new LatLng(41.504867, -90.550515), new LatLng(41.505329, -90.549614))){
-            markerEvald.setVisible(true);
-        }else{
-            if(markerEvald.isVisible()){
-                markerEvald.setVisible(false);
-            }
-        }
-
-        // Bergendoff/Centennial Hall
-        if(inBounds(location, new LatLng(41.504851, -90.549523), new LatLng(41.505988, -90.548268))){
-            markerBerg.setVisible(true);
-            markerCent.setVisible(true);
-        }else{
-            if(markerBerg.isVisible() && markerCent.isVisible()){
-                markerBerg.setVisible(false);
-                markerCent.setVisible(false);
-            }
-        }
-
-        // College Center
-        if(inBounds(location, new LatLng(41.504035, -90.548783), new LatLng(41.504646, -90.547704))){
-            markerCollegeCenter.setVisible(true);
-        }else{
-            if(markerCollegeCenter.isVisible()){
-                markerCollegeCenter.setVisible(false);
-            }
-        }
-
-        // Library
-        if(inBounds(location, new LatLng(41.501850, -90.551105), new LatLng(41.502669, -90.549528))){
-            markerLibrary.setVisible(true);
-        }else{
-            if(markerLibrary.isVisible()){
-                markerLibrary.setVisible(false);
-            }
-        }
-    }
-
-    //inBounds: returns true if location is within given bounds
-    //location: location object to test if in bounds
-    //southWest: southwestern corner of bounds
-    //northEast: northeastern corner of bounds
-    public Boolean inBounds(Location location, LatLng southWest, LatLng northEast) {
-        double locationLat = location.getLatitude();
-        double locationLng = location.getLongitude();
-        return (locationLat >= southWest.latitude && locationLat <= northEast.latitude && locationLng >= southWest.longitude && locationLng <= northEast.longitude);
-    }
-
     //populates nearBuildings listView with buildings that are within radius
     public void buildingsInRadius(Location location){
 
         for(Building building : defaultBuildingsArrayList) {
             if (inRadius(location, building.getLatLng(), 40)) {
-                listViewArrayListManager.addProximateBuilding(building);
+                if(!listViewArrayListManager.containsInProximate(building)){
+                    listViewArrayListManager.addProximateBuilding(building);
+                    arrayAdapter.notifyDataSetChanged();
+                }
             } else {
                 listViewArrayListManager.removeProximateBuilding(building);
+                arrayAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -229,6 +145,7 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
         Location.distanceBetween(checkLocation.getLatitude() , checkLocation.getLongitude(),
                 centerLocation.latitude, centerLocation.longitude, results);
         if(results[0] <= radius){
+            Toast.makeText(getBaseContext(),"In Radius", Toast.LENGTH_SHORT);
             return true;
         }
 

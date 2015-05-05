@@ -88,6 +88,17 @@ public class ListViewArrayListManager {
             }
         }
     }
+    public boolean contains(Building building){
+        return mainArrayList.contains(building);
+    }
+    public boolean containsInProximate(Building building){
+        for(int i = 0; i<numProximateBuildings; i++){
+            if(mainArrayList.get(i).equals(building)){
+                return true;
+            }
+        }
+        return false;
+    }
     public Building getBuilding(int position){
         return mainArrayList.get(position);
     }

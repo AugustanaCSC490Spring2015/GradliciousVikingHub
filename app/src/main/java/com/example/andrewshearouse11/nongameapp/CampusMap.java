@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -17,8 +18,8 @@ import com.google.android.gms.maps.model.*;
 public class CampusMap extends Activity implements OnMapReadyCallback {
 
     GoogleMap mainMap;
-    String buildingLat;
-    String buildingLng;
+    double buildingLat;
+    double buildingLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,8 @@ public class CampusMap extends Activity implements OnMapReadyCallback {
         setContentView(R.layout.campus_map_layout);
 
         Intent intent = getIntent();
-        buildingLat = intent.getStringExtra("buildingLat");
-        buildingLng = intent.getStringExtra("buildingLng");
+        buildingLat = intent.getDoubleExtra("buildingLat",-1000);
+        buildingLng = intent.getDoubleExtra("buildingLng",-1000);
 
         //Setup Map Fragment
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapviewfragment);
@@ -47,8 +48,8 @@ public class CampusMap extends Activity implements OnMapReadyCallback {
         mainMap.setOnMyLocationChangeListener(onMyLocationChange);
 
 
-        if(!buildingLat.isEmpty()){
-            mainMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(buildingLat), Double.parseDouble(buildingLng))));
+        if(buildingLat != -1000){
+            mainMap.addMarker(new MarkerOptions().position(new LatLng(buildingLat, buildingLng)).icon(BitmapDescriptorFactory.fromResource(R.mipmap.augie_pin)));
         }
     }
 

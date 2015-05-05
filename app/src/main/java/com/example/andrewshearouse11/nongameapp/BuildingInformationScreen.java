@@ -21,8 +21,8 @@ public class BuildingInformationScreen extends Activity{
 
     String buildingName;
     String buildingInfo;
-    String buildingLat;
-    String buildingLng;
+    double buildingLat;
+    double buildingLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,8 @@ public class BuildingInformationScreen extends Activity{
         Intent intent = getIntent();
         buildingName = intent.getStringExtra("buildingName");
         buildingInfo = intent.getStringExtra("buildingInfo");
-        buildingLat = intent.getStringExtra("buildingLat");
-        buildingLng = intent.getStringExtra("buildingLng");
+        buildingLat = intent.getDoubleExtra("buildingLat",-1000);
+        buildingLng = intent.getDoubleExtra("buildingLng",-1000);
 
         final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
 
@@ -54,12 +54,13 @@ public class BuildingInformationScreen extends Activity{
         showOnMapButton.setTypeface(font);
         showOnMapButton.setTextSize(18);
         showOnMapButton.setTextColor(Color.parseColor("#151515"));
+
         showOnMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent campusMap = new Intent(getBaseContext(), CampusMap.class);
-                campusMap.putExtra("Latitude",buildingLat);
-                campusMap.putExtra("Longitude", buildingLng);
+                campusMap.putExtra("buildingLat",buildingLat);
+                campusMap.putExtra("buildingLng", buildingLng);
                 startActivity(campusMap);
             }
         });
