@@ -136,7 +136,7 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
         for(Building building : defaultBuildingsArrayList) {
             if (inRadius(location, building.getLatLng(), 40)) {
                 if(!listViewArrayListManager.containsInProximate(building)){
-                    listViewArrayListManager.addProximateBuilding(building);
+                    //listViewArrayListManager.addProximateBuilding(building);
                     arrayAdapter.notifyDataSetChanged();
                 }
             } else {

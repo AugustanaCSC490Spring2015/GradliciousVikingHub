@@ -84,14 +84,14 @@ public class ListViewArrayListManager {
         numProximateBuildings ++;
         proximateBuildingsArrayList.add(building);
     }
-    public boolean removeProximateBuilding(Building building){
+    public void removeProximateBuilding(Building building){
         for(int i = 0; i <= numProximateBuildings; i++){
             if(mainArrayList.get(i).equals(building)){
                 mainArrayList.remove(i);
                 numProximateBuildings --;
             }
         }
-        return proximateBuildingsArrayList.remove(building);
+        proximateBuildingsArrayList.remove(building);
     }
     public boolean contains(Building building){
         return mainArrayList.contains(building);
