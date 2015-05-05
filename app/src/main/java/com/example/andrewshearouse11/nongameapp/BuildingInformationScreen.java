@@ -53,7 +53,7 @@ public class BuildingInformationScreen extends Activity{
         Button showOnMapButton = (Button) findViewById(R.id.showOnMapButton);
         showOnMapButton.setTypeface(font);
         showOnMapButton.setTextSize(18);
-        showOnMapButton.setTextColor(Color.parseColor("#151515"));
+        showOnMapButton.setTextColor(Color.WHITE);
 
         showOnMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
