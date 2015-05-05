@@ -67,7 +67,6 @@ public class ListViewArrayListManager {
                     Log.d("info", "Sad Panda");
                 }
                 Log.w("nothing left in parseQuery","");
-                Toast.makeText(context,"Updated Building Information", Toast.LENGTH_SHORT);
             }
         });
     }

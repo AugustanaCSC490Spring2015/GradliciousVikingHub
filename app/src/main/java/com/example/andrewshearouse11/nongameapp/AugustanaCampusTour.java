@@ -145,7 +145,6 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
         Location.distanceBetween(checkLocation.getLatitude() , checkLocation.getLongitude(),
                 centerLocation.latitude, centerLocation.longitude, results);
         if(results[0] <= radius){
-            Toast.makeText(getBaseContext(),"In Radius", Toast.LENGTH_SHORT);
             return true;
         }
 
