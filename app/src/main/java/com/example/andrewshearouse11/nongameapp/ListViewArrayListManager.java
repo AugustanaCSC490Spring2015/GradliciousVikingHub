@@ -20,19 +20,23 @@ import java.util.List;
 public class ListViewArrayListManager {
 
     private ArrayList<Building> mainArrayList;
-    private int numProximateBuildings;
+    private ArrayList<Building> proximateBuildingsArrayList;
     private ArrayList<Building> defaultBuildingsArrayList;
+    private int numProximateBuildings;
     Context context;
 
     public ListViewArrayListManager(Context context){
         this.context = context;
         mainArrayList = new ArrayList<Building>();
         defaultBuildingsArrayList = new ArrayList<Building>();
+        proximateBuildingsArrayList = new ArrayList<Building>();
         numProximateBuildings = 0;
         populateDefault();
     }
 
     private void populateDefault(){
+        mainArrayList.add(new Building("Hanson Hall of Science", new LatLng(41.503743, -90.551306)));
+        mainArrayList.add(new Building("Olin Center", new LatLng(41.503118, -90.550580)));
         mainArrayList.add(new Building("Denkmann", new LatLng(41.504452, -90.550603)));
         mainArrayList.add(new Building("Old Main", new LatLng(41.504345, -90.549501)));
         mainArrayList.add(new Building("Evald Hall", new LatLng(41.505120, -90.550086)));
@@ -78,25 +82,22 @@ public class ListViewArrayListManager {
     public void addProximateBuilding(Building building){
         mainArrayList.add(numProximateBuildings, building);
         numProximateBuildings ++;
+        proximateBuildingsArrayList.add(building);
     }
-    public void removeProximateBuilding(Building building){
+    public boolean removeProximateBuilding(Building building){
         for(int i = 0; i <= numProximateBuildings; i++){
             if(mainArrayList.get(i).equals(building)){
                 mainArrayList.remove(i);
                 numProximateBuildings --;
             }
         }
+        return proximateBuildingsArrayList.remove(building);
     }
     public boolean contains(Building building){
         return mainArrayList.contains(building);
     }
     public boolean containsInProximate(Building building){
-        for(int i = 0; i<numProximateBuildings; i++){
-            if(mainArrayList.get(i).equals(building)){
-                return true;
-            }
-        }
-        return false;
+        return proximateBuildingsArrayList.contains(building);
     }
     public Building getBuilding(int position){
         return mainArrayList.get(position);
@@ -106,5 +107,8 @@ public class ListViewArrayListManager {
     }
     public ArrayList<Building> getDefaultBuildingsArrayList(){
         return defaultBuildingsArrayList;
+    }
+    public ArrayList<Building> getProximateBuildingsArrayList(){
+        return proximateBuildingsArrayList;
     }
 }

@@ -22,28 +22,9 @@ import java.util.ArrayList;
 public class AugustanaCampusTour extends Activity implements OnMapReadyCallback {
 
     GoogleMap mainMap;
-    Marker markerHanson;
-    Marker markerOlin;
-    Marker markerDenkmann;
-    Marker markerOldmain;
-    Marker markerEvald;
-    Marker markerBerg;
-    Marker markerCent;
-    Marker markerCollegeCenter;
-    Marker markerLibrary;
-
-    Building hansonBuilding;
-    Building olinBuilding;
-    Building denkmannBuilding;
-    Building oldMainBuilding;
-    Building evaldBuilding;
-    Building bergendoffBuilding;
-    Building centennialBuilding;
-    Building collegeCenterBuilding;
-    Building libraryBuilding;
 
     ArrayList<Building> defaultBuildingsArrayList;
-    ArrayAdapter<Building> arrayAdapter;
+    ListAdapter arrayAdapter;
 
     ListView listView;
     ListViewArrayListManager listViewArrayListManager;
@@ -103,21 +84,48 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
     public ListView.OnItemClickListener listViewItemClickListener = new ListView.OnItemClickListener(){
         @Override
         public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+
+            int adjustedPosition = position;
+            ArrayList<Building> proximateBuildings = listViewArrayListManager.getProximateBuildingsArrayList();
+            ArrayList<Building> defaultBuildings = listViewArrayListManager.getDefaultBuildingsArrayList();
+            Building building = new Building("Error", new LatLng(0,0));
+
+            Log.w("position", Integer.toString(position));
+            if(position == 0){
+                return;
+            }
+            if((position == 1) && (proximateBuildings.size()==0)){
+                return;
+
+            }
+            if(position != 0 && position < proximateBuildings.size()+1 && proximateBuildings.size() != 0){
+                building = (proximateBuildings.get(position-1));
+            }
+            if(position == proximateBuildings.size()+2 && proximateBuildings.size()==0){
+                return;
+            }
+            if(position == proximateBuildings.size()+1 && proximateBuildings.size()!=0){
+                return;
+            }
+            if(position > proximateBuildings.size()+2 && proximateBuildings.size()==0) {
+                building = (defaultBuildings.get(position-proximateBuildings.size()-3));
+            }
+            if(position > proximateBuildings.size()+1 && proximateBuildings.size()!=0) {
+                building = (defaultBuildings.get(position-proximateBuildings.size()-2));
+            }
+
             Log.w(Integer.toString(position),"-Position");
             Intent buildingInformation = new Intent(getBaseContext(), BuildingInformationScreen.class);
-            buildingInformation.putExtra("buildingName", listViewArrayListManager.getBuilding(position).getBuildingName());
-            buildingInformation.putExtra("buildingInfo", listViewArrayListManager.getBuilding(position).getBuildingInfo());
-            buildingInformation.putExtra("buildingLat", listViewArrayListManager.getBuilding(position).getLatLng().latitude);
-            buildingInformation.putExtra("buildingLng", listViewArrayListManager.getBuilding(position).getLatLng().longitude);
+            buildingInformation.putExtra("buildingName", building.getBuildingName());
+            buildingInformation.putExtra("buildingInfo", building.getBuildingInfo());
+            buildingInformation.putExtra("buildingLat", building.getLatLng().latitude);
+            buildingInformation.putExtra("buildingLng", building.getLatLng().longitude);
             startActivity(buildingInformation);
         }
     };
 
     private void setUpListView(){
-        arrayAdapter = new ArrayAdapter<Building>(
-                this,
-                android.R.layout.simple_list_item_1,
-                listViewArrayListManager.getMainArrayList());
+        arrayAdapter = new ListAdapter(this, listViewArrayListManager.getDefaultBuildingsArrayList(),listViewArrayListManager.getProximateBuildingsArrayList());
         listView.setAdapter(arrayAdapter);
         listView.setOnItemClickListener(listViewItemClickListener);
     }
