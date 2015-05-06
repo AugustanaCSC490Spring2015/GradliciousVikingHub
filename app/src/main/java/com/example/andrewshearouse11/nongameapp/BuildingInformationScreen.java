@@ -61,6 +61,7 @@ public class BuildingInformationScreen extends Activity{
                 Intent campusMap = new Intent(getBaseContext(), CampusMap.class);
                 campusMap.putExtra("buildingLat",buildingLat);
                 campusMap.putExtra("buildingLng", buildingLng);
+                campusMap.putExtra("buildingName", buildingName);
                 startActivity(campusMap);
             }
         });
