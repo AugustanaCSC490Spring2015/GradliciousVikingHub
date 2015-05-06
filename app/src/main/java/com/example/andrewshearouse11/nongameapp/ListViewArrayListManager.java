@@ -44,6 +44,13 @@ public class ListViewArrayListManager {
         mainArrayList.add(new Building("Centennial Hall", new LatLng(41.505099, -90.548690)));
         mainArrayList.add(new Building("College Center", new LatLng(41.504345, -90.548235)));
         mainArrayList.add(new Building("Thomas Tredway Library", new LatLng(41.502316, -90.550134)));
+        mainArrayList.add(new Building("Sorenson Hall", new LatLng(0,0)));
+        mainArrayList.add(new Building("Swenson Hall of Geosciences", new LatLng(0,0)));
+        mainArrayList.add(new Building("PepsiCo Recreation Center", new LatLng(0,0)));
+        mainArrayList.add(new Building("Studio Art Building", new LatLng(0,0)));
+        mainArrayList.add(new Building("Doris and Victor Day Broadcasting Center", new LatLng(0,0)));
+        mainArrayList.add(new Building("Austin E. Knowlton Outdoor Athletic Complex", new LatLng(0,0)));
+        mainArrayList.add(new Building("Roy J. Carver Center for Physical Education", new LatLng(0,0)));
         for(Building building : mainArrayList){
             defaultBuildingsArrayList.add(building);
         }

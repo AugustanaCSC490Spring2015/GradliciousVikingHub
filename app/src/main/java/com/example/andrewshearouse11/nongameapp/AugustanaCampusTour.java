@@ -52,21 +52,14 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
         mainMap = map;
         mainMap.setMyLocationEnabled(true);
 
-
         //set onMyLocationChangeListener
         mainMap.setOnMyLocationChangeListener(onMyLocationChange);
 
-        /*
-        markerHanson = mainMap.addMarker(new MarkerOptions().position(hansonBuilding.getLatLng()).visible(false));
-        markerOlin = mainMap.addMarker(new MarkerOptions().position(olinBuilding.getLatLng()).visible(false));
-        markerDenkmann = mainMap.addMarker(new MarkerOptions().position(denkmannBuilding.getLatLng()).visible(false));
-        markerOldmain = mainMap.addMarker(new MarkerOptions().position(oldMainBuilding.getLatLng()).visible(false));
-        markerEvald = mainMap.addMarker(new MarkerOptions().position(evaldBuilding.getLatLng()).visible(false));
-        markerBerg = mainMap.addMarker(new MarkerOptions().position(bergendoffBuilding.getLatLng()).visible(false));
-        markerCent = mainMap.addMarker(new MarkerOptions().position(centennialBuilding.getLatLng()).visible(false));
-        markerCollegeCenter = mainMap.addMarker(new MarkerOptions().position(collegeCenterBuilding.getLatLng()).visible(false));
-        markerLibrary = mainMap.addMarker(new MarkerOptions().position(libraryBuilding.getLatLng()).visible(false));
-        */
+        listViewArrayListManager.addProximateBuilding(new Building("Proximate building 1", new LatLng(0,0)));
+        listViewArrayListManager.addProximateBuilding(new Building("Proximate building 2", new LatLng(0,0)));
+        listViewArrayListManager.addProximateBuilding(new Building("Proximate building 3", new LatLng(0,0)));
+        listViewArrayListManager.addProximateBuilding(new Building("Proximate building 4", new LatLng(0,0)));
+        arrayAdapter.notifyDataSetChanged();
     }
 
 

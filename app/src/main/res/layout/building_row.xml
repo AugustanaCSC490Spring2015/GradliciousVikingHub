@@ -3,20 +3,9 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/rowTitle"
+        android:id="@+id/rowItem"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:typeface="sans"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp" />
-
-    <TextView
-        android:id="@+id/seperator"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:typeface="sans"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
