@@ -6,48 +6,63 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="match_parent">
 
-        <ImageView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:id="@+id/buildingImageView"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/defaultbuildingimage"
-            android:scaleType="centerCrop" />
-
-        <Space
-            android:layout_width="20px"
-            android:layout_height="20px" />
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="BuildingName"
-            android:id="@+id/buildingName"
-            android:paddingLeft="5dp" />
+            android:layout_weight="1">
 
-        <Space
-            android:layout_width="20px"
-            android:layout_height="20px" />
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:id="@+id/buildingImageView"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/defaultbuildingimage"
+                android:scaleType="centerCrop" />
 
-        <Space
-            android:layout_width="20px"
-            android:layout_height="20px" />
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px" />
 
-        <Space
-            android:layout_width="20px"
-            android:layout_height="20px" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="BuildingName"
+                android:id="@+id/buildingName"
+                android:paddingLeft="5dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px" />
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px" />
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="BuildingInformation"
+                android:id="@+id/buildingInformatin"
+                android:paddingLeft="5dp" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="BuildingInformation"
-            android:id="@+id/buildingInformatin"
-            android:paddingLeft="5dp" />
+            android:text="Show on Map"
+            android:id="@+id/showOnMapButton"
+            android:background="#015a92"
+            android:layout_gravity="center_horizontal|bottom" />
 
     </LinearLayout>
 

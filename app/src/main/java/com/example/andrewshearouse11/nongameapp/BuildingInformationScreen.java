@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,8 @@ public class BuildingInformationScreen extends Activity{
 
     String buildingName;
     String buildingInfo;
+    double buildingLat;
+    double buildingLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public class BuildingInformationScreen extends Activity{
         Intent intent = getIntent();
         buildingName = intent.getStringExtra("buildingName");
         buildingInfo = intent.getStringExtra("buildingInfo");
+        buildingLat = intent.getDoubleExtra("buildingLat",-1000);
+        buildingLng = intent.getDoubleExtra("buildingLng",-1000);
 
         final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
 
@@ -44,9 +50,24 @@ public class BuildingInformationScreen extends Activity{
         buildingInformationTextView.setTextColor(Color.parseColor("#151515"));
         buildingInformationTextView.setText(buildingInfo);
 
-        setBuildingImage();
+        Button showOnMapButton = (Button) findViewById(R.id.showOnMapButton);
+        showOnMapButton.setTypeface(font);
+        showOnMapButton.setTextSize(18);
+        showOnMapButton.setTextColor(Color.WHITE);
 
+        showOnMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent campusMap = new Intent(getBaseContext(), CampusMap.class);
+                campusMap.putExtra("buildingLat",buildingLat);
+                campusMap.putExtra("buildingLng", buildingLng);
+                campusMap.putExtra("buildingName", buildingName);
+                startActivity(campusMap);
+            }
+        });
+        setBuildingImage();
     }
+
 
     public void setBuildingImage(){
         ImageView buildingImageView = (ImageView) findViewById(R.id.buildingImageView);

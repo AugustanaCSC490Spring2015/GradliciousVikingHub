@@ -20,20 +20,23 @@ import java.util.List;
 public class ListViewArrayListManager {
 
     private ArrayList<Building> mainArrayList;
-    private int numProximateBuildings;
+    private ArrayList<Building> proximateBuildingsArrayList;
     private ArrayList<Building> defaultBuildingsArrayList;
+    private int numProximateBuildings;
     Context context;
 
     public ListViewArrayListManager(Context context){
         this.context = context;
         mainArrayList = new ArrayList<Building>();
         defaultBuildingsArrayList = new ArrayList<Building>();
+        proximateBuildingsArrayList = new ArrayList<Building>();
         numProximateBuildings = 0;
         populateDefault();
     }
 
     private void populateDefault(){
-        pullFromParse();
+        mainArrayList.add(new Building("Hanson Hall of Science", new LatLng(41.503743, -90.551306)));
+        mainArrayList.add(new Building("Olin Center", new LatLng(41.503118, -90.550580)));
         mainArrayList.add(new Building("Denkmann", new LatLng(41.504452, -90.550603)));
         mainArrayList.add(new Building("Old Main", new LatLng(41.504345, -90.549501)));
         mainArrayList.add(new Building("Evald Hall", new LatLng(41.505120, -90.550086)));
@@ -41,6 +44,13 @@ public class ListViewArrayListManager {
         mainArrayList.add(new Building("Centennial Hall", new LatLng(41.505099, -90.548690)));
         mainArrayList.add(new Building("College Center", new LatLng(41.504345, -90.548235)));
         mainArrayList.add(new Building("Thomas Tredway Library", new LatLng(41.502316, -90.550134)));
+        mainArrayList.add(new Building("Sorenson Hall", new LatLng(0,0)));
+        mainArrayList.add(new Building("Swenson Hall of Geosciences", new LatLng(0,0)));
+        mainArrayList.add(new Building("PepsiCo Recreation Center", new LatLng(0,0)));
+        mainArrayList.add(new Building("Studio Art Building", new LatLng(0,0)));
+        mainArrayList.add(new Building("Doris and Victor Day Broadcasting Center", new LatLng(0,0)));
+        mainArrayList.add(new Building("Austin E. Knowlton Outdoor Athletic Complex", new LatLng(0,0)));
+        mainArrayList.add(new Building("Roy J. Carver Center for Physical Education", new LatLng(0,0)));
         for(Building building : mainArrayList){
             defaultBuildingsArrayList.add(building);
         }
@@ -68,7 +78,6 @@ public class ListViewArrayListManager {
                     Log.d("info", "Sad Panda");
                 }
                 Log.w("nothing left in parseQuery","");
-                Toast.makeText(context,"Updated Building Information", Toast.LENGTH_SHORT);
             }
         });
     }
@@ -80,6 +89,7 @@ public class ListViewArrayListManager {
     public void addProximateBuilding(Building building){
         mainArrayList.add(numProximateBuildings, building);
         numProximateBuildings ++;
+        proximateBuildingsArrayList.add(building);
     }
     public void removeProximateBuilding(Building building){
         for(int i = 0; i <= numProximateBuildings; i++){
@@ -88,6 +98,13 @@ public class ListViewArrayListManager {
                 numProximateBuildings --;
             }
         }
+        proximateBuildingsArrayList.remove(building);
+    }
+    public boolean contains(Building building){
+        return mainArrayList.contains(building);
+    }
+    public boolean containsInProximate(Building building){
+        return proximateBuildingsArrayList.contains(building);
     }
     public Building getBuilding(int position){
         return mainArrayList.get(position);
@@ -97,5 +114,8 @@ public class ListViewArrayListManager {
     }
     public ArrayList<Building> getDefaultBuildingsArrayList(){
         return defaultBuildingsArrayList;
+    }
+    public ArrayList<Building> getProximateBuildingsArrayList(){
+        return proximateBuildingsArrayList;
     }
 }
