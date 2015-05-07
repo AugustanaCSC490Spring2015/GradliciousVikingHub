@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
         eventsCalendarButton.setTextSize(24);
         eventsCalendarButton.setTextColor(Color.WHITE);
 
+        BuildingSharedPreferences preferences = new BuildingSharedPreferences(this, new String[0]);
 
         /* TEST CODE FOR SAVING/CREATING NEW PARSE OBJECT
         ParseObject testObject = new ParseObject("TestObject");

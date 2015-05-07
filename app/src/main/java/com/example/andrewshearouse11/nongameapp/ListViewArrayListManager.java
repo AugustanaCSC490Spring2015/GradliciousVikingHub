@@ -13,6 +13,7 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Ethan on 5/3/2015.
@@ -24,6 +25,7 @@ public class ListViewArrayListManager {
     private ArrayList<Building> defaultBuildingsArrayList;
     private int numProximateBuildings;
     Context context;
+    private SharedPreferences buildingsList;
 
     public ListViewArrayListManager(Context context){
         this.context = context;
@@ -31,26 +33,37 @@ public class ListViewArrayListManager {
         defaultBuildingsArrayList = new ArrayList<Building>();
         proximateBuildingsArrayList = new ArrayList<Building>();
         numProximateBuildings = 0;
+        buildingsList = context.getSharedPreferences("buildings", context.MODE_PRIVATE);
         populateDefault();
     }
 
     private void populateDefault(){
-        mainArrayList.add(new Building("Hanson Hall of Science", new LatLng(41.503743, -90.551306)));
-        mainArrayList.add(new Building("Olin Center", new LatLng(41.503118, -90.550580)));
-        mainArrayList.add(new Building("Denkmann", new LatLng(41.504452, -90.550603)));
-        mainArrayList.add(new Building("Old Main", new LatLng(41.504345, -90.549501)));
-        mainArrayList.add(new Building("Evald Hall", new LatLng(41.505120, -90.550086)));
-        mainArrayList.add(new Building("Bergendoff Hall", new LatLng(41.505453, -90.549239)));
-        mainArrayList.add(new Building("Centennial Hall", new LatLng(41.505099, -90.548690)));
-        mainArrayList.add(new Building("College Center", new LatLng(41.504345, -90.548235)));
-        mainArrayList.add(new Building("Thomas Tredway Library", new LatLng(41.502316, -90.550134)));
-        mainArrayList.add(new Building("Sorenson Hall", new LatLng(0,0)));
-        mainArrayList.add(new Building("Swenson Hall of Geosciences", new LatLng(0,0)));
-        mainArrayList.add(new Building("PepsiCo Recreation Center", new LatLng(0,0)));
-        mainArrayList.add(new Building("Studio Art Building", new LatLng(0,0)));
-        mainArrayList.add(new Building("Doris and Victor Day Broadcasting Center", new LatLng(0,0)));
-        mainArrayList.add(new Building("Austin E. Knowlton Outdoor Athletic Complex", new LatLng(0,0)));
-        mainArrayList.add(new Building("Roy J. Carver Center for Physical Education", new LatLng(0,0)));
+
+        Map<String,?> keys = buildingsList.getAll();
+
+        for(Map.Entry<String,?> entry : keys.entrySet()){
+
+            String[] buildingInfo = ((String) entry.getValue()).split(";");
+
+            double buildingLat = 0;
+            double buildingLng = 0;
+            String buildingInformation = "";
+
+            for(String splitValue : buildingInfo){
+                if(splitValue.startsWith("buildingLat")){
+                    buildingLat = Double.parseDouble(splitValue.substring(splitValue.indexOf(" ")));
+                }
+                if(splitValue.startsWith("buildingLng")){
+                    buildingLng = Double.parseDouble(splitValue.substring(splitValue.indexOf(" ")));
+                }
+                if(!splitValue.startsWith("buildingLat") && !splitValue.startsWith("buildingLng") && !splitValue.startsWith("updateAt")){
+                    buildingInformation += splitValue + "\n\n";
+                }
+            }
+
+            mainArrayList.add(new Building(entry.getKey(), new LatLng(buildingLat,buildingLng), buildingInformation));
+        }
+
         for(Building building : mainArrayList){
             defaultBuildingsArrayList.add(building);
         }

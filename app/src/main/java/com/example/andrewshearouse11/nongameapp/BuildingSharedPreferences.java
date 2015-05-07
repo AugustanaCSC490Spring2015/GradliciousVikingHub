@@ -51,13 +51,14 @@ public class BuildingSharedPreferences {
 
             //First checks if the current buildingName exists as a key, string pair
             if(buildingsList.getString(buildingName, "").equals("")){
-                editor.putString(buildingName, createDataString(parseObjects.get(i)));
+                editor.putString(buildingName, createDataString(parseObjects.get(i))).apply();
             }else{
                 //If it does exist it will check and see if the update values are the same
                 String currentData = buildingsList.getString(buildingName, "");
                 String[] parts = currentData.split(";");
-                if(!parts[0].equals(updatedDate)){
-                    editor.putString(buildingName, createDataString(parseObjects.get(i)));
+                if(!parts[0].substring(parts[0].indexOf(" ")).equals(updatedDate)){
+                    Log.w("buildingDataUpdating","");
+                    editor.putString(buildingName, createDataString(parseObjects.get(i))).apply();
                 }
             }
             i++;
@@ -68,7 +69,13 @@ public class BuildingSharedPreferences {
     based upon the different columns in the table we are working with. */
     public String createDataString(ParseObject object){
         String buildingData = "";
-        buildingData = buildingData + object.getUpdatedAt() + ";";
+        buildingData = buildingData + "updateAt: " + object.getUpdatedAt() + ";";
+        if(!object.getString("buildingLat").equals("null")){
+            buildingData = buildingData + "buildingLat: "+ object.getString("buildingLat") + ";";
+        }
+        if(!object.getString("buildingLng").equals("null")){
+            buildingData = buildingData + "buildingLng: "+ object.getString("buildingLng") + ";";
+        }
         if(!object.getNumber("yearOpened").equals("null")){
             buildingData = buildingData + "Opened: " + object.getNumber("yearOpened") + ";";
         }
