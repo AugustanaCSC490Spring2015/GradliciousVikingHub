@@ -75,7 +75,7 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
             int adjustedPosition = position;
             ArrayList<Building> proximateBuildings = listViewArrayListManager.getProximateBuildingsArrayList();
             ArrayList<Building> defaultBuildings = listViewArrayListManager.getDefaultBuildingsArrayList();
-            Building building = new Building("Error", new LatLng(0,0));
+            Building building = new Building("Error", new LatLng(0,0),0);
 
             Log.w("position", Integer.toString(position));
             if(position == 0){
@@ -121,7 +121,7 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
     public void buildingsInRadius(Location location){
 
         for(Building building : defaultBuildingsArrayList) {
-            if (inRadius(location, building.getLatLng(), 40)) {
+            if (inRadius(location, building.getLatLng(), building.getBuildingRadius())) {
                 if(!listViewArrayListManager.containsInProximate(building)){
                     listViewArrayListManager.addProximateBuilding(building);
                     arrayAdapter.notifyDataSetChanged();

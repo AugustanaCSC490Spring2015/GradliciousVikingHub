@@ -76,6 +76,9 @@ public class BuildingSharedPreferences {
         if(!object.getString("buildingLng").equals("null")){
             buildingData = buildingData + "buildingLng: "+ object.getString("buildingLng") + ";";
         }
+        if(!object.getNumber("buildingRadius").equals("null")){
+            buildingData = buildingData + "buildingRadius: "+object.getNumber("buildingRadius") + ";";
+        }
         if(!object.getNumber("yearOpened").equals("null")){
             buildingData = buildingData + "Opened: " + object.getNumber("yearOpened") + ";";
         }
