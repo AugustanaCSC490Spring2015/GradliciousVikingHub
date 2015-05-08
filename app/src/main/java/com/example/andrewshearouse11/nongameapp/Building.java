@@ -10,18 +10,24 @@ public class Building {
     String buildingName;
     LatLng buildingLatLng;
     String buildingInfo;
+    int buildingRadius;
 
-    public Building(String buildingName, LatLng buildingLatLng){
+    public Building(String buildingName, LatLng buildingLatLng, int buildingRadius){
         this.buildingName = buildingName;
         this.buildingLatLng = buildingLatLng;
         this.buildingInfo = "";
+        this.buildingRadius = buildingRadius;
     }
-    public Building(String buildingName, LatLng buildingLatLng, String buildingInfo){
+    public Building(String buildingName, LatLng buildingLatLng, String buildingInfo, int buildingRadius){
         this.buildingName = buildingName;
         this.buildingLatLng = buildingLatLng;
         this.buildingInfo = buildingInfo;
+        this.buildingRadius = buildingRadius;
     }
 
+    public int getBuildingRadius(){
+        return buildingRadius;
+    }
     public LatLng getLatLng(){
         return buildingLatLng;
     }

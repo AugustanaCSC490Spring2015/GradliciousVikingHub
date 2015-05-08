@@ -46,6 +46,7 @@ public class ListViewArrayListManager {
 
             double buildingLat = 0;
             double buildingLng = 0;
+            int buildingRadius = 0;
             String buildingInformation = "";
 
             for(String splitValue : buildingInfo){
@@ -55,12 +56,14 @@ public class ListViewArrayListManager {
                 if(splitValue.startsWith("buildingLng")){
                     buildingLng = Double.parseDouble(splitValue.substring(splitValue.indexOf(" ")));
                 }
+                if(splitValue.startsWith("buildingRadius")){
+                    buildingRadius = Integer.parseInt(splitValue.substring(splitValue.indexOf(" ")));
+                }
                 if(!splitValue.startsWith("buildingLat") && !splitValue.startsWith("buildingLng") && !splitValue.startsWith("updateAt")){
                     buildingInformation += splitValue + "\n\n";
                 }
             }
-
-            defaultBuildingsArrayList.add(new Building(entry.getKey(), new LatLng(buildingLat,buildingLng), buildingInformation));
+            defaultBuildingsArrayList.add(new Building(entry.getKey(), new LatLng(buildingLat,buildingLng), buildingInformation, buildingRadius));
         }
     }
 
