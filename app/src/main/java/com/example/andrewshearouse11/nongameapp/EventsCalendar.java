@@ -2,12 +2,18 @@ package com.example.andrewshearouse11.nongameapp;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.Xml;
 
 import com.google.android.gms.analytics.ecommerce.Product;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -44,19 +50,12 @@ public class EventsCalendar extends Activity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.events_layout);
 
-            XmlPullParserFactory pullParserFactory;
-            try{
-                pullParserFactory = XmlPullParserFactory.newInstance();
-                XmlPullParser parser = pullParserFactory.newPullParser();
-                InputStream in_s = getResources().openRawResource(R.raw.temp);
-                parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-                parser.setInput(in_s, null);
-                parseXML(parser);
-            } catch(XmlPullParserException e){
-                e.printStackTrace();
-            } catch(IOException e){
-                e.printStackTrace();
-            }
+            TextView display = (TextView)findViewById(R.id.info);
+
+            String url = "http://www.survivingwithandroid.com/2014/02/android-weather-app-tutorial-step-by.htmlhttp://www.survivingwithandroid.com/2014/02/android-weather-app-tutorial-step-by.html";
+            HTMLParser parser = new HTMLParser();
+            parser.sendDisplay(display);
+            (new LoadDataTask()).execute(new String[]{url});
 
         }
 
@@ -119,6 +118,56 @@ public class EventsCalendar extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+}
+
+class HTMLParser extends AsyncTask<String, Void, String> {
+    TextView display;
+    @Override
+    protected String doInBackground(String... strings) {
+        StringBuffer buffer = new StringBuffer();
+        try {
+            Log.d("JSwa", "Connecting to [" + strings[0] + "]");
+            Document doc  = Jsoup.connect(strings[0]).get();
+            Log.d("JSwa", "Connected to ["+strings[0]+"]");
+            // Get document (HTML page) title
+            String title = doc.title();
+            Log.d("JSwA", "Title ["+title+"]");
+            buffer.append("Title: " + title + "\r\n");
+
+            // Get meta info
+            Elements metaElems = doc.select("meta");
+            buffer.append("META DATA\r\n");
+            for (Element metaElem : metaElems) {
+                String name = metaElem.attr("name");
+                String content = metaElem.attr("content");
+                buffer.append("name ["+name+"] - content ["+content+"] \r\n");
+            }
+
+            Elements topicList = doc.select("h2.topic");
+            buffer.append("Topic list\r\n");
+            for (Element topic : topicList) {
+                String data = topic.text();
+
+                buffer.append("Data ["+data+"] \r\n");
+            }
+
+        }
+        catch(Throwable t) {
+            t.printStackTrace();
+        }
+
+        return buffer.toString();
+    }
+
+    protected void sendDisplay(TextView display){
+        this.display = display;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        display.setText(s);
     }
 }
 
