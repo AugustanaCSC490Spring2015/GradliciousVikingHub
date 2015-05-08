@@ -54,12 +54,6 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
 
         //set onMyLocationChangeListener
         mainMap.setOnMyLocationChangeListener(onMyLocationChange);
-
-        listViewArrayListManager.addProximateBuilding(new Building("Proximate building 1", new LatLng(0,0)));
-        listViewArrayListManager.addProximateBuilding(new Building("Proximate building 2", new LatLng(0,0)));
-        listViewArrayListManager.addProximateBuilding(new Building("Proximate building 3", new LatLng(0,0)));
-        listViewArrayListManager.addProximateBuilding(new Building("Proximate building 4", new LatLng(0,0)));
-        arrayAdapter.notifyDataSetChanged();
     }
 
 
@@ -129,7 +123,7 @@ public class AugustanaCampusTour extends Activity implements OnMapReadyCallback 
         for(Building building : defaultBuildingsArrayList) {
             if (inRadius(location, building.getLatLng(), 40)) {
                 if(!listViewArrayListManager.containsInProximate(building)){
-                    //listViewArrayListManager.addProximateBuilding(building);
+                    listViewArrayListManager.addProximateBuilding(building);
                     arrayAdapter.notifyDataSetChanged();
                 }
             } else {
