@@ -52,14 +52,14 @@ public class EventsCalendar extends Activity {
 
             TextView display = (TextView)findViewById(R.id.info);
 
-            String url = "http://www.survivingwithandroid.com/2014/02/android-weather-app-tutorial-step-by.htmlhttp://www.survivingwithandroid.com/2014/02/android-weather-app-tutorial-step-by.html";
+            String url = "http://www.survivingwithandroid.com/2014/02/android-weather-app-tutorial-step-by.html";
             HTMLParser parser = new HTMLParser();
             parser.sendDisplay(display);
             (new LoadDataTask()).execute(new String[]{url});
 
         }
 
-        private void parseXML(XmlPullParser parser) throws XmlPullParserException,IOException {
+        /*private void parseXML(XmlPullParser parser) throws XmlPullParserException,IOException {
             ArrayList<ProductTest> products = null;
             int eventType = parser.getEventType();
             ProductTest currentProduct = null;
@@ -118,7 +118,7 @@ public class EventsCalendar extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
+    }*/
 }
 
 class HTMLParser extends AsyncTask<String, Void, String> {
@@ -136,13 +136,14 @@ class HTMLParser extends AsyncTask<String, Void, String> {
             buffer.append("Title: " + title + "\r\n");
 
             // Get meta info
-            Elements metaElems = doc.select("meta");
+            /*Elements metaElems = doc.select("meta");
             buffer.append("META DATA\r\n");
             for (Element metaElem : metaElems) {
                 String name = metaElem.attr("name");
                 String content = metaElem.attr("content");
                 buffer.append("name ["+name+"] - content ["+content+"] \r\n");
-            }
+                Log.d("JSwA", "name ["+name+"] - content ["+content+"] \r\n");
+            }*/
 
             Elements topicList = doc.select("h2.topic");
             buffer.append("Topic list\r\n");
@@ -150,6 +151,7 @@ class HTMLParser extends AsyncTask<String, Void, String> {
                 String data = topic.text();
 
                 buffer.append("Data ["+data+"] \r\n");
+                Log.d("JSwA", "Data ["+data+"]");
             }
 
         }
