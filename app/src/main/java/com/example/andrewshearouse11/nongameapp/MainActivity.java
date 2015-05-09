@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -52,16 +53,33 @@ public class MainActivity extends Activity {
         eventsCalendarButton.setTextColor(Color.WHITE);
 
         BuildingSharedPreferences preferences = new BuildingSharedPreferences(this, new String[0]);
-
-        /* TEST CODE FOR SAVING/CREATING NEW PARSE OBJECT
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
-        */
-
-
+        updateLocalDataStore();
                 //set the click listeners
                 setListeners();
+    }
+
+    private void updateLocalDataStore(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("AcademicBuildings");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(final List<ParseObject> parseObjects, ParseException e) {
+                if (e == null) {
+                    ParseObject.unpinAllInBackground("buildings", new DeleteCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if(e == null){
+                                ParseObject.pinAllInBackground("buildings", parseObjects);
+                            }
+                            else{
+                                Log.e("ERROR", "Failure to unpin local cache: " + e);
+                            }
+                        }
+                    });
+                } else {
+                    Log.e("ERROR", "Failure to query Parse: " + e);
+                }
+            }
+        });
     }
 
     private void setListeners(){
