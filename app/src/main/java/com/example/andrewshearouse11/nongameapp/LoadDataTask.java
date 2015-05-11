@@ -3,7 +3,6 @@ package com.example.andrewshearouse11.nongameapp;
 import android.os.AsyncTask;
 import android.provider.DocumentsContract;
 import android.util.Log;
-import com.example.andrewshearouse11.nongameapp.EventsCalendar;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,7 +15,7 @@ import org.jsoup.nodes.Element;
 public class LoadDataTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder builder = new StringBuilder();
         try {
             Log.d("JSwa", "Connecting to ["+strings[0]+"]");
             Document doc  = Jsoup.connect(strings[0]).get();
@@ -24,23 +23,23 @@ public class LoadDataTask extends AsyncTask<String, Void, String> {
             // Get document (HTML page) title
             String title = doc.title();
             Log.d("JSwA", "Title ["+title+"]");
-            buffer.append("Title: " + title + "\r\n");
+            builder.append("Title: " + title + "\r\n");
 
             // Get meta info
             Elements metaElems = doc.select("meta");
-            buffer.append("META DATA\r\n");
+            builder.append("META DATA\r\n");
             for (Element metaElem : metaElems) {
                 String name = metaElem.attr("name");
                 String content = metaElem.attr("content");
-                buffer.append("name ["+name+"] - content ["+content+"] \r\n");
+                builder.append("name [" + name + "] - content [" + content + "] \r\n");
             }
 
             Elements topicList = doc.select("h2.topic");
-            buffer.append("Topic list\r\n");
+            builder.append("Topic list\r\n");
             for (Element topic : topicList) {
                 String data = topic.text();
 
-                buffer.append("Data ["+data+"] \r\n");
+                builder.append("Data [" + data + "] \r\n");
             }
 
         }
@@ -48,7 +47,7 @@ public class LoadDataTask extends AsyncTask<String, Void, String> {
             t.printStackTrace();
         }
 
-        return buffer.toString();
+        return builder.toString();
     }
 
     @Override
