@@ -105,8 +105,8 @@ public class MainActivity extends Activity {
         eventsCalendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent eventsCalendar = new Intent(getBaseContext(), EventsCalendar.class);
-                //startActivity(eventsCalendar);
+                Intent eventsCalendar = new Intent(getBaseContext(), EventsCalendar.class);
+                startActivity(eventsCalendar);
             }
         });
     }

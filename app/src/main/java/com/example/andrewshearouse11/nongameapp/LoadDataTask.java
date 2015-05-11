@@ -3,7 +3,6 @@ package com.example.andrewshearouse11.nongameapp;
 import android.os.AsyncTask;
 import android.provider.DocumentsContract;
 import android.util.Log;
-import com.example.andrewshearouse11.nongameapp.EventsCalendar;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -26,7 +25,7 @@ public class LoadDataTask extends AsyncTask<String, Void, String> {
             Log.d("JSwA", "Title ["+title+"]");
             buffer.append("Title: " + title + "\r\n");
 
-            // Get meta info
+            // Get meta info//
             Elements metaElems = doc.select("meta");
             buffer.append("META DATA\r\n");
             for (Element metaElem : metaElems) {
