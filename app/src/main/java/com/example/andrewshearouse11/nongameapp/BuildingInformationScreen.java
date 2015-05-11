@@ -74,19 +74,6 @@ public class BuildingInformationScreen extends Activity{
         });
         setBuildingImage();
     }
-    //Method will pull the information for that building from the localDataStore
-    public void populateBuildingInfo(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("AcademicBuildings");
-        query.whereEqualTo("buildingName", buildingName);
-        query.fromLocalDatastore();
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> parseObjects, ParseException e) {
-                Log.d("RESULTS", parseObjects.size() + "");
-            }
-        });
-    }
-
 
     public void setBuildingImage(){
         ImageView buildingImageView = (ImageView) findViewById(R.id.buildingImageView);
