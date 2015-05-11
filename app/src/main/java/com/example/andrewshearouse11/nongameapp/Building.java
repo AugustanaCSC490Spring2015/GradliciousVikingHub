@@ -5,7 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 /**
  * Created by ethanwojcinski11 on 5/1/2015.
  */
-public class Building {
+public class Building implements Comparable{
 
     String buildingName;
     LatLng buildingLatLng;
@@ -42,6 +42,10 @@ public class Building {
     }
     public Boolean equals(Building testBuilding){
         return buildingName.equals(testBuilding.getBuildingName());
+    }
+    public int compareTo(Object t){
+        Building building = (Building) t;
+        return this.buildingName.compareTo(building.getBuildingName());
     }
 
 }

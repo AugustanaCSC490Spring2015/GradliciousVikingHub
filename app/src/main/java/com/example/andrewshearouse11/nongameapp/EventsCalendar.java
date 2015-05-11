@@ -1,4 +1,4 @@
-package com.example.andrewshearouse11.nongameapp;
+/*package com.example.andrewshearouse11.nongameapp;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -118,7 +118,7 @@ public class EventsCalendar extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }*/
+    }*//*
 }
 
 class HTMLParser extends AsyncTask<String, Void, String> {
@@ -143,7 +143,7 @@ class HTMLParser extends AsyncTask<String, Void, String> {
                 String content = metaElem.attr("content");
                 buffer.append("name ["+name+"] - content ["+content+"] \r\n");
                 Log.d("JSwA", "name ["+name+"] - content ["+content+"] \r\n");
-            }*/
+            }*//*
 
             Elements topicList = doc.select("h2.topic");
             buffer.append("Topic list\r\n");
@@ -171,7 +171,7 @@ class HTMLParser extends AsyncTask<String, Void, String> {
         super.onPostExecute(s);
         display.setText(s);
     }
-}
+}*/
 
 
 

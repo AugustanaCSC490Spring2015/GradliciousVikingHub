@@ -24,7 +24,7 @@ public class ListViewArrayListManager {
     private ArrayList<Building> proximateBuildingsArrayList;
     private ArrayList<Building> defaultBuildingsArrayList;
     private int numProximateBuildings;
-    Context context;
+    private Context context;
     private SharedPreferences buildingsList;
 
     public ListViewArrayListManager(Context context){
@@ -57,14 +57,15 @@ public class ListViewArrayListManager {
                     buildingLng = Double.parseDouble(splitValue.substring(splitValue.indexOf(" ")));
                 }
                 if(splitValue.startsWith("buildingRadius")){
-                    buildingRadius = Integer.parseInt(splitValue.substring(splitValue.indexOf(" ")));
+                    buildingRadius = Integer.parseInt(splitValue.substring(splitValue.indexOf(" ")+1));
                 }
-                if(!splitValue.startsWith("buildingLat") && !splitValue.startsWith("buildingLng") && !splitValue.startsWith("updateAt")){
+                if(!splitValue.startsWith("buildingLat") && !splitValue.startsWith("buildingLng") && !splitValue.startsWith("updateAt") && !splitValue.startsWith("buildingRadius")){
                     buildingInformation += splitValue + "\n\n";
                 }
             }
             defaultBuildingsArrayList.add(new Building(entry.getKey(), new LatLng(buildingLat,buildingLng), buildingInformation, buildingRadius));
         }
+        sortDefualtBuildingsArrayList();
     }
 
     public void addProximateBuilding(Building building){
@@ -84,5 +85,8 @@ public class ListViewArrayListManager {
     }
     public ArrayList<Building> getProximateBuildingsArrayList(){
         return proximateBuildingsArrayList;
+    }
+    public void sortDefualtBuildingsArrayList(){
+        java.util.Collections.sort(defaultBuildingsArrayList);
     }
 }

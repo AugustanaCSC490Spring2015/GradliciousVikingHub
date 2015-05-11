@@ -13,6 +13,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.List;
+
 
 /**
  * Created by Ethan on 4/16/2015.
@@ -66,6 +73,18 @@ public class BuildingInformationScreen extends Activity{
             }
         });
         setBuildingImage();
+    }
+    //Method will pull the information for that building from the localDataStore
+    public void populateBuildingInfo(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("AcademicBuildings");
+        query.whereEqualTo("buildingName", buildingName);
+        query.fromLocalDatastore();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> parseObjects, ParseException e) {
+                Log.d("RESULTS", parseObjects.size() + "");
+            }
+        });
     }
 
 
