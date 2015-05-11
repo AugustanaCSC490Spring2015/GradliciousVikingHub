@@ -25,7 +25,7 @@ public class LoadDataTask extends AsyncTask<String, Void, String> {
             Log.d("JSwA", "Title ["+title+"]");
             builder.append("Title: " + title + "\r\n");
 
-            // Get meta info
+            // Get meta info//
             Elements metaElems = doc.select("meta");
             builder.append("META DATA\r\n");
             for (Element metaElem : metaElems) {
