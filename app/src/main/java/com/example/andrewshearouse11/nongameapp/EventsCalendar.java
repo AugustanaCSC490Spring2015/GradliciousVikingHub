@@ -55,7 +55,7 @@ public class EventsCalendar extends Activity {
             String url = "http://www.survivingwithandroid.com/2014/02/android-weather-app-tutorial-step-by.html";
             HTMLParser parser = new HTMLParser();
             parser.sendDisplay(display);
-            (new LoadDataTask()).execute(new String[]{url});
+            parser.execute(url);
 
         }
 
@@ -125,7 +125,7 @@ class HTMLParser extends AsyncTask<String, Void, String> {
     TextView display;
     @Override
     protected String doInBackground(String... strings) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
         try {
             Log.d("JSwa", "Connecting to [" + strings[0] + "]");
             Document doc  = Jsoup.connect(strings[0]).get();
@@ -133,24 +133,24 @@ class HTMLParser extends AsyncTask<String, Void, String> {
             // Get document (HTML page) title
             String title = doc.title();
             Log.d("JSwA", "Title ["+title+"]");
-            buffer.append("Title: " + title + "\r\n");
+            stringBuilder.append("Title: " + title + "\r\n");
 
             // Get meta info
             Elements metaElems = doc.select("meta");
-            buffer.append("META DATA\r\n");
+            stringBuilder.append("META DATA\r\n");
             for (Element metaElem : metaElems) {
                 String name = metaElem.attr("name");
                 String content = metaElem.attr("content");
-                buffer.append("name ["+name+"] - content ["+content+"] \r\n");
+                stringBuilder.append("name [" + name + "] - content [" + content + "] \r\n");
                 Log.d("JSwA", "name ["+name+"] - content ["+content+"] \r\n");
             }
 
             Elements topicList = doc.select("h2.topic");
-            buffer.append("Topic list\r\n");
+            stringBuilder.append("Topic list\r\n");
             for (Element topic : topicList) {
                 String data = topic.text();
 
-                buffer.append("Data ["+data+"] \r\n");
+                stringBuilder.append("Data [" + data + "] \r\n");
                 Log.d("JSwA", "Data ["+data+"]");
             }
 
@@ -159,7 +159,7 @@ class HTMLParser extends AsyncTask<String, Void, String> {
             t.printStackTrace();
         }
 
-        return buffer.toString();
+        return stringBuilder.toString();
     }
 
     protected void sendDisplay(TextView display){
@@ -168,6 +168,7 @@ class HTMLParser extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
+        //Question the ordering of these two lines. May need to call display.setText before super executes.
         super.onPostExecute(s);
         display.setText(s);
     }
