@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.example.andrewshearouse11.nongameapp;
+package com.edu.augustana.csc490.vikinghub;
 
 import android.util.Xml;
 
