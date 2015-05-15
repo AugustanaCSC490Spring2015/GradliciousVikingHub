@@ -1,4 +1,4 @@
-package com.example.andrewshearouse11.nongameapp;
+package edu.augustana.csc490.vikinghub;
 
 import android.content.Context;
 import android.content.SharedPreferences;
