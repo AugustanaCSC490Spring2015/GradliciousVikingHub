@@ -1,11 +1,18 @@
-package com.edu.augustana.csc490.vikinghub;
+package com.example.andrewshearouse11.nongameapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**

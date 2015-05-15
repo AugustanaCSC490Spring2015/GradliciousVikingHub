@@ -1,4 +1,4 @@
-package com.edu.augustana.csc490.vikinghub;
+package com.example.andrewshearouse11.nongameapp;
 
 import com.google.android.gms.maps.model.LatLng;
 

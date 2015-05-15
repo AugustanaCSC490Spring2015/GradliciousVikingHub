@@ -11,9 +11,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-        android:name="com.edu.augustana.csc490.vikinghub.UseParse">
+        android:name=".UseParse">
         <activity
-            android:name="com.edu.augustana.csc490.vikinghub.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,16 +22,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.edu.augustana.csc490.vikinghub.CampusMap"
+        <activity android:name=".CampusMap"
             android:label="Campus Map"/>
 
-        <activity android:name="com.edu.augustana.csc490.vikinghub.AugustanaCampusTour"
+        <activity android:name=".AugustanaCampusTour"
             android:label="Campus Tour"/>
 
-        <activity android:name="com.edu.augustana.csc490.vikinghub.EventsCalendar"
+        <activity android:name=".EventsCalendar"
             android:label="Events Calendar"/>
 
-        <activity android:name="com.edu.augustana.csc490.vikinghub.BuildingInformationScreen"
+        <activity android:name=".BuildingInformationScreen"
             android:label="Building Information"/>
 
 

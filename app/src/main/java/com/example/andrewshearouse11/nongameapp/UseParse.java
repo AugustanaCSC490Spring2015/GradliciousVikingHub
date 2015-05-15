@@ -1,4 +1,4 @@
-package com.edu.augustana.csc490.vikinghub;
+package com.example.andrewshearouse11.nongameapp;
 
 import android.app.Application;
 import com.parse.Parse;
