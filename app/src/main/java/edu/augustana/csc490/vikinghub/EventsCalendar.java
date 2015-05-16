@@ -16,16 +16,6 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Date;
 
-
-class ProductTest
-{
-
-    public String name;
-    public String quantity;
-    public String color;
-
-}
-
 public class EventsCalendar extends Activity {
 
         private final String URL_STRING = "http://www.augustana.edu/prebuilt/acal/calpage.php?mode=js&viewid=13";
@@ -50,60 +40,6 @@ public class EventsCalendar extends Activity {
             parser.execute(url);
 
         }
-
-        /*private void parseXML(XmlPullParser parser) throws XmlPullParserException,IOException {
-            ArrayList<ProductTest> products = null;
-            int eventType = parser.getEventType();
-            ProductTest currentProduct = null;
-
-            while (eventType != XmlPullParser.END_DOCUMENT){
-                String name = null;
-                switch (eventType){
-                    case XmlPullParser.START_DOCUMENT:
-                        products = new ArrayList();
-                        break;
-                    case XmlPullParser.START_TAG:
-                        name = parser.getName();
-                        if (name.equals("product")){
-                            currentProduct = new ProductTest();
-                        } else if (currentProduct != null){
-                            if (name.equals("productname")){
-                                currentProduct.name = parser.nextText();
-                            } else if (name.equals("productcolor")){
-                                currentProduct.color = parser.nextText();
-                            } else if (name.equals("productquantity")){
-                                currentProduct.quantity= parser.nextText();
-                            }
-                        }
-                        break;
-                    case XmlPullParser.END_TAG:
-                        name = parser.getName();
-                        if (name.equalsIgnoreCase("product") && currentProduct != null){
-                            products.add(currentProduct);
-                        }
-                }
-                eventType = parser.next();
-            }
-
-            printProducts(products);
-        }
-
-    private void printProducts(ArrayList<ProductTest> products)
-    {
-        String content = "";
-        Iterator<ProductTest> it = products.iterator();
-        while(it.hasNext())
-        {
-            ProductTest currProduct  = it.next();
-            content = content + "Product :" +  currProduct.name + "\n";
-            content = content + "Quantity :" +  currProduct.quantity + "\n";
-            content = content + "Color :" +  currProduct.color + "\n \n";
-
-        }
-
-        TextView display = (TextView)findViewById(R.id.info);
-        display.setText(content);
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
