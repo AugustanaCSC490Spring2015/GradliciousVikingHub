@@ -21,11 +21,11 @@ public class Event {
     private String eventDescription;
     public Event(String title, String date, String description){
         eventTitle = title;
-        //removeSlashes(eventTitle);
+        eventTitle = removeSlashes(eventTitle);
         eventDate = date;
-        removeSlashes(eventDate);
+        eventDate = removeSlashes(eventDate);
         eventDescription = description;
-        removeSlashes(eventDescription);
+        eventDescription = removeSlashes(eventDescription);
     }
 
     public String getEventTitle(){
@@ -38,8 +38,9 @@ public class Event {
         return eventDescription;
     }
 
-    public void removeSlashes(String information){
-        information.replaceAll("\"", "'");
-        information.replaceAll("\'", "'");
+    public String removeSlashes(String information){
+        information.replaceAll("\\\"", "'");
+        information.replaceAll("\\\'", "'");
+        return information;
     }
 }
