@@ -28,14 +28,6 @@ public class EventsCalendar extends Activity {
             setContentView(R.layout.events_layout);
 
             TextView display = (TextView)findViewById(R.id.info);
-
-//            Calendar cal = Calendar.getInstance();
-//            cal.setTime(new Date());
-//            String month = "&month=" + cal.get(Calendar.MONTH);
-//            String year = "&year=" + cal.get(Calendar.YEAR);
-
-            String url = URL_STRING;//+year+month;
-            Log.w("URL",url);
             HTMLParser parser = new HTMLParser();
             parser.sendDisplay(display);
             parser.execute(URL_STRING);
@@ -55,7 +47,6 @@ class HTMLParser extends AsyncTask<String, Void, String> {
     TextView display;
     @Override
     protected String doInBackground(String... strings) {
-        StringBuilder stringBuilder = new StringBuilder();
         String uglyDoc = "";
         try {
             Log.d("JSwa", "Connecting to [" + strings[0] + "]");
@@ -65,26 +56,16 @@ class HTMLParser extends AsyncTask<String, Void, String> {
             //uglyDoc = doc.toString();
             Elements eventTitles = doc.getElementsByAttributeValueContaining("class", "cal_title");
             Elements eventDates = doc.getElementsByAttributeValueContaining("class", "cal_date");
-            Elements temp = new Elements();
-            for(Element date : eventDates){
-                if(date.className().contains("large")){
-                    temp.add(date);
-                }
-            }
-            eventDates.removeAll(temp);
+
+            //removes additional dates that are being pulled in and cause an incorrect display
+            //more info above the method
+            eventDates = removeExtraDates(eventDates);
+
             Elements eventDescriptions = doc.getElementsByAttributeValueContaining("class", "cal_desc");
             for(int i = 0; i < eventTitles.size(); i++){
                 Log.d("JSwa", "date"+eventDates.get(i).text());
                 uglyDoc = uglyDoc + eventTitles.get(i).text() + "\n" + eventDates.get(i).text() + "\n" + eventDescriptions.get(i).text() + "\n";
             }
-
-//            Elements eventTitles = doc.select("span.\\&quot;cal_title\\&quot;");
-//            Elements eventDates = doc.select("div.\\&quot;cal_date\\&quot;");
-//            Elements eventDescriptions = doc.select("div.\\&quot;cal_desc\\&quot;");
-//            for(int i = 0; i < eventTitles.size(); i++){
-//                Log.d("JSwa", "date"+eventDates.get(i).text());
-//                uglyDoc = uglyDoc + eventTitles.get(i).text() + "\n" + eventDates.get(i).text() + "\n" + eventDescriptions.get(i).text() + "\n";
-//            }
             String[] uglyDocArray = uglyDoc.split("\n");
             for(String line : uglyDocArray){
                 Log.w("line",line);
@@ -96,6 +77,26 @@ class HTMLParser extends AsyncTask<String, Void, String> {
         }
 
         return uglyDoc;
+    }
+
+    /**
+     *
+     * @param eventDates - full list of event dates
+     * This method deals with a problem caused by the layout of the HTML file.
+     * The file has classes "cal_date" and "cal_date_large" and, due to some browser rendering issues,
+     * I can only get content using getElementsByAttributeValueContaining(). This means that it returns
+     * both "cal_date" content and the occasional "cal_date_large" that throws off the content scheme.
+     * This method removes the cal_date_large elements from the dates.
+     */
+    public Elements removeExtraDates(Elements eventDates){
+        Elements temp = new Elements();
+        for(Element date : eventDates){
+            if(date.className().contains("large")){
+                temp.add(date);
+            }
+        }
+        eventDates.removeAll(temp);
+        return eventDates;
     }
 
     protected void sendDisplay(TextView display){
