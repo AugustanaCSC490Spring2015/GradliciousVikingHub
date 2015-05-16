@@ -16,12 +16,21 @@ import android.widget.TextView;
  * Created by andrewshearouse11 on 5/16/2015.
  */
 public class Event {
-    String eventTitle;
-    String eventDate;
-    String eventDescription;
+    private String eventTitle;
+    private String eventDate;
+    private String eventDescription;
     public Event(String title, String date, String description){
         eventTitle = title;
         eventDate = date;
         eventDescription = description;
+    }
+    public String getEventTitle(){
+        return eventTitle;
+    }
+    public String getEventDate(){
+        return eventDate;
+    }
+    public String getEventDescription(){
+        return eventDescription;
     }
 }

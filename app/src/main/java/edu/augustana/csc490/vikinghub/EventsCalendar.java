@@ -1,6 +1,7 @@
 package edu.augustana.csc490.vikinghub;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import android.view.Menu;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,9 +28,7 @@ public class EventsCalendar extends Activity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.events_layout);
 
-            TextView display = (TextView)findViewById(R.id.info);
-            HTMLParser parser = new HTMLParser();
-            parser.sendDisplay(display);
+            HTMLParser parser = new HTMLParser(this, ((ListView) findViewById(R.id.eventListView)));
             String urlString = "http://www.augustana.edu/prebuilt/acal/calpage.php?mode=js&viewid=13";
             parser.execute(urlString);
 
@@ -43,11 +43,18 @@ public class EventsCalendar extends Activity {
 }
 
 //Code to run in background and parse HTML
-class HTMLParser extends AsyncTask<String, Void, String> {
-    TextView display;
-    ArrayList<Event> listOfEvents = new ArrayList<Event>();
+class HTMLParser extends AsyncTask<String, Void, ArrayList<Event>> {
+    Activity activity;
+    ListView listView;
+    ArrayList<Event> listOfEvents;
+    public HTMLParser(Activity activity, ListView listView){
+        this.activity = activity;
+        this.listView = listView;
+        listOfEvents = new ArrayList<>();
+    }
+
     @Override
-    protected String doInBackground(String... strings) {
+    protected ArrayList<Event> doInBackground(String... strings) {
         String uglyDoc = "";
         try {
             Log.d("JSwa", "Connecting to [" + strings[0] + "]");
@@ -63,21 +70,20 @@ class HTMLParser extends AsyncTask<String, Void, String> {
             Elements eventDescriptions = doc.getElementsByAttributeValueContaining("class", "cal_desc");
 
             for(int i = 0; i < eventTitles.size(); i++){
-                Event currentEvent = new Event(eventTitles.get(i).text(), eventDates.get(i).text(), eventDescriptions.get(i).text());
-                listOfEvents.add(currentEvent);
+                listOfEvents.add(new Event(eventTitles.get(i).text(), eventDates.get(i).text(), eventDescriptions.get(i).text()));
             }
 
-//            String[] uglyDocArray = uglyDoc.split("\n");
-//            for(String line : uglyDocArray){
-//                Log.w("line",line);
-//            }
 
         }
         catch(Throwable t) {
             t.printStackTrace();
         }
 
-        return uglyDoc;
+        return listOfEvents;
+    }
+
+    public ArrayList<Event> getListOfEvents(){
+        return listOfEvents;
     }
 
     /**
@@ -100,19 +106,13 @@ class HTMLParser extends AsyncTask<String, Void, String> {
         return eventDates;
     }
 
-    protected void sendDisplay(TextView display){
-        this.display = display;
-    }
-
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(ArrayList<Event> s) {
         //Question the ordering of these two lines. May need to call display.setText before super executes.
         super.onPostExecute(s);
-        display.setText(s);
-    }
-
-    private void formatText(){
-
+        EventListAdapter listAdapter = new EventListAdapter(activity,s);
+        ListView listView = (ListView) activity.findViewById(R.id.eventListView);
+        listView.setAdapter(listAdapter);
     }
 }
 
