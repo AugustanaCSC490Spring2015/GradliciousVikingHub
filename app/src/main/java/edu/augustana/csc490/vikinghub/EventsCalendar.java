@@ -13,13 +13,12 @@ import org.jsoup.select.Elements;
 import android.view.Menu;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class EventsCalendar extends Activity {
-
-        //URL of Augustana's HTML calendar
-        private final String URL_STRING = "http://www.augustana.edu/prebuilt/acal/calpage.php?mode=js&viewid=13";
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +29,8 @@ public class EventsCalendar extends Activity {
             TextView display = (TextView)findViewById(R.id.info);
             HTMLParser parser = new HTMLParser();
             parser.sendDisplay(display);
-            parser.execute(URL_STRING);
+            String urlString = "http://www.augustana.edu/prebuilt/acal/calpage.php?mode=js&viewid=13";
+            parser.execute(urlString);
 
         }
 
@@ -45,6 +45,7 @@ public class EventsCalendar extends Activity {
 //Code to run in background and parse HTML
 class HTMLParser extends AsyncTask<String, Void, String> {
     TextView display;
+    ArrayList<Event> listOfEvents = new ArrayList<Event>();
     @Override
     protected String doInBackground(String... strings) {
         String uglyDoc = "";
@@ -56,20 +57,20 @@ class HTMLParser extends AsyncTask<String, Void, String> {
             //uglyDoc = doc.toString();
             Elements eventTitles = doc.getElementsByAttributeValueContaining("class", "cal_title");
             Elements eventDates = doc.getElementsByAttributeValueContaining("class", "cal_date");
-
             //removes additional dates that are being pulled in and cause an incorrect display
             //more info above the method
             eventDates = removeExtraDates(eventDates);
-
             Elements eventDescriptions = doc.getElementsByAttributeValueContaining("class", "cal_desc");
+
             for(int i = 0; i < eventTitles.size(); i++){
-                Log.d("JSwa", "date"+eventDates.get(i).text());
-                uglyDoc = uglyDoc + eventTitles.get(i).text() + "\n" + eventDates.get(i).text() + "\n" + eventDescriptions.get(i).text() + "\n";
+                Event currentEvent = new Event(eventTitles.get(i).text(), eventDates.get(i).text(), eventDescriptions.get(i).text());
+                listOfEvents.add(currentEvent);
             }
-            String[] uglyDocArray = uglyDoc.split("\n");
-            for(String line : uglyDocArray){
-                Log.w("line",line);
-            }
+
+//            String[] uglyDocArray = uglyDoc.split("\n");
+//            for(String line : uglyDocArray){
+//                Log.w("line",line);
+//            }
 
         }
         catch(Throwable t) {
