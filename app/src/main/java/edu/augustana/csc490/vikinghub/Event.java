@@ -21,9 +21,13 @@ public class Event {
     private String eventDescription;
     public Event(String title, String date, String description){
         eventTitle = title;
+        //removeSlashes(eventTitle);
         eventDate = date;
+        removeSlashes(eventDate);
         eventDescription = description;
+        removeSlashes(eventDescription);
     }
+
     public String getEventTitle(){
         return eventTitle;
     }
@@ -32,5 +36,10 @@ public class Event {
     }
     public String getEventDescription(){
         return eventDescription;
+    }
+
+    public void removeSlashes(String information){
+        information.replaceAll("\"", "'");
+        information.replaceAll("\'", "'");
     }
 }
