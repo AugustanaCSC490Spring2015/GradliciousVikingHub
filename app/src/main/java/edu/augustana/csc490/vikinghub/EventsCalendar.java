@@ -13,6 +13,10 @@ import org.jsoup.select.Elements;
 import android.view.Menu;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
+
+
 class ProductTest
 {
 
@@ -24,7 +28,8 @@ class ProductTest
 
 public class EventsCalendar extends Activity {
 
-        String urlString = "http://www.augustana.edu/x11818.xml";
+        private final String URL_STRING = "http://www.augustana.edu/prebuilt/acal/calpage.php?mode=js&viewid=13";
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,7 +38,13 @@ public class EventsCalendar extends Activity {
 
             TextView display = (TextView)findViewById(R.id.info);
 
-            String url = "http://www.survivingwithandroid.com/2014/02/android-weather-app-tutorial-step-by.html";
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(new Date());
+            String month = "&month=" + cal.get(Calendar.MONTH);
+            String year = "&year=" + cal.get(Calendar.YEAR);
+
+            String url = URL_STRING+year+month;
+            Log.w("URL",url);
             HTMLParser parser = new HTMLParser();
             parser.sendDisplay(display);
             parser.execute(url);
@@ -107,32 +118,16 @@ class HTMLParser extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         StringBuilder stringBuilder = new StringBuilder();
+        String uglyDoc = "";
         try {
             Log.d("JSwa", "Connecting to [" + strings[0] + "]");
             Document doc  = Jsoup.connect(strings[0]).get();
             Log.d("JSwa", "Connected to ["+strings[0]+"]");
-            // Get document (HTML page) title
-            String title = doc.title();
-            Log.d("JSwA", "Title ["+title+"]");
-            stringBuilder.append("Title: " + title + "\r\n");
 
-            // Get meta info
-            Elements metaElems = doc.select("meta");
-            stringBuilder.append("META DATA\r\n");
-            for (Element metaElem : metaElems) {
-                String name = metaElem.attr("name");
-                String content = metaElem.attr("content");
-                stringBuilder.append("name [" + name + "] - content [" + content + "] \r\n");
-                Log.d("JSwA", "name ["+name+"] - content ["+content+"] \r\n");
-            }
-
-            Elements topicList = doc.select("h2.topic");
-            stringBuilder.append("Topic list\r\n");
-            for (Element topic : topicList) {
-                String data = topic.text();
-
-                stringBuilder.append("Data [" + data + "] \r\n");
-                Log.d("JSwA", "Data ["+data+"]");
+            uglyDoc = doc.toString();
+            String[] uglyDocArray = uglyDoc.split("\n");
+            for(String line : uglyDocArray){
+                Log.w("line",line);
             }
 
         }
@@ -140,7 +135,7 @@ class HTMLParser extends AsyncTask<String, Void, String> {
             t.printStackTrace();
         }
 
-        return stringBuilder.toString();
+        return uglyDoc;
     }
 
     protected void sendDisplay(TextView display){
@@ -152,6 +147,10 @@ class HTMLParser extends AsyncTask<String, Void, String> {
         //Question the ordering of these two lines. May need to call display.setText before super executes.
         super.onPostExecute(s);
         display.setText(s);
+    }
+
+    private void formatText(){
+
     }
 }
 

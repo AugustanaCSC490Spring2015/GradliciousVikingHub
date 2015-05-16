@@ -21,12 +21,19 @@
             android:src="@mipmap/augie_logo_256x256" />
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/info"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="109dp" />
+        android:id="@+id/scrollView" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/info"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="109dp" />
+    </ScrollView>
+
 </RelativeLayout>
