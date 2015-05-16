@@ -65,6 +65,13 @@ class HTMLParser extends AsyncTask<String, Void, String> {
             //uglyDoc = doc.toString();
             Elements eventTitles = doc.getElementsByAttributeValueContaining("class", "cal_title");
             Elements eventDates = doc.getElementsByAttributeValueContaining("class", "cal_date");
+            Elements temp = new Elements();
+            for(Element date : eventDates){
+                if(date.className().contains("large")){
+                    temp.add(date);
+                }
+            }
+            eventDates.removeAll(temp);
             Elements eventDescriptions = doc.getElementsByAttributeValueContaining("class", "cal_desc");
             for(int i = 0; i < eventTitles.size(); i++){
                 Log.d("JSwa", "date"+eventDates.get(i).text());
