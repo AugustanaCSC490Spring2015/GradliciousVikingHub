@@ -69,8 +69,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@null"
-        android:src="@mipmap/question"
         android:scaleType="fitXY"
-        android:text="Help" />
+        android:text="Help"
+        android:gravity="bottom|end" />
 
 </RelativeLayout>
