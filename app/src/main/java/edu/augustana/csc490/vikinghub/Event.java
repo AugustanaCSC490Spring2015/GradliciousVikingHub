@@ -19,13 +19,15 @@ public class Event {
     private String eventTitle;
     private String eventDate;
     private String eventDescription;
-    public Event(String title, String date, String description){
+    private String eventUrl;
+    public Event(String title, String date, String description, String url){
         eventTitle = title;
         eventTitle = removeSlashes(eventTitle);
         eventDate = date;
         eventDate = removeSlashes(eventDate);
         eventDescription = description;
         eventDescription = removeSlashes(eventDescription);
+        eventUrl = url;
     }
 
     public String getEventTitle(){
@@ -36,6 +38,9 @@ public class Event {
     }
     public String getEventDescription(){
         return eventDescription;
+    }
+    public String getEventUrl(){
+        return eventUrl;
     }
 
     public String removeSlashes(String information){

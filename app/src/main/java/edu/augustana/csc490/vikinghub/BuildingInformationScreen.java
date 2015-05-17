@@ -34,6 +34,7 @@ public class BuildingInformationScreen extends Activity{
         buildingLng = intent.getDoubleExtra("buildingLng",-1000);
 
         final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
+        final Typeface font2 = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeue_Thin.otf");
 
         TextView buildingNameTextView = (TextView) findViewById(R.id.buildingName);
         buildingNameTextView.setTypeface(font);
@@ -42,7 +43,7 @@ public class BuildingInformationScreen extends Activity{
         buildingNameTextView.setText(buildingName);
 
         TextView buildingInformationTextView = (TextView) findViewById(R.id.buildingInformatin);
-        buildingInformationTextView.setTypeface(font);
+        buildingInformationTextView.setTypeface(font2);
         buildingInformationTextView.setTextSize(18);
         buildingInformationTextView.setTextColor(Color.parseColor("#151515"));
         buildingInformationTextView.setText(buildingInfo);

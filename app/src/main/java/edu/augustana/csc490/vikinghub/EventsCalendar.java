@@ -2,6 +2,8 @@ package edu.augustana.csc490.vikinghub;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,16 +26,22 @@ import java.util.List;
 
 public class EventsCalendar extends Activity {
 
+    private ArrayList<Event> listOfEvents;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.events_layout);
 
-            HTMLParser parser = new HTMLParser(this, ((ListView) findViewById(R.id.eventListView)));
+            ListView listView = (ListView) findViewById(R.id.eventListView);
+            listOfEvents = new ArrayList<>();
+
+            HTMLParser parser = new HTMLParser(this, listView, listOfEvents);
             String urlString = "http://www.augustana.edu/prebuilt/acal/calpage.php?mode=js&viewid=13";
             parser.execute(urlString);
 
+            listView.setOnItemClickListener(onItemClickListener);
         }
 
     @Override
@@ -40,28 +50,37 @@ public class EventsCalendar extends Activity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    private ListView.OnItemClickListener onItemClickListener = new ListView.OnItemClickListener(){
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+
+            String url = listOfEvents.get(position).getEventUrl();
+            Intent goToUrlIntent = new Intent(Intent.ACTION_VIEW);
+            goToUrlIntent.setData(Uri.parse(url));
+            startActivity(goToUrlIntent);
+        }
+    };
 }
 
 //Code to run in background and parse HTML
 class HTMLParser extends AsyncTask<String, Void, ArrayList<Event>> {
-    Activity activity;
-    ListView listView;
-    ArrayList<Event> listOfEvents;
-    public HTMLParser(Activity activity, ListView listView){
+    private Activity activity;
+    private ListView listView;
+    private ArrayList<Event> listOfEvents;
+    public HTMLParser(Activity activity, ListView listView, ArrayList<Event> listOfEvents){
         this.activity = activity;
         this.listView = listView;
-        listOfEvents = new ArrayList<>();
+        this.listOfEvents = listOfEvents;
     }
 
     @Override
     protected ArrayList<Event> doInBackground(String... strings) {
-        String uglyDoc = "";
         try {
             Log.d("JSwa", "Connecting to [" + strings[0] + "]");
             Document doc  = Jsoup.connect(strings[0]).get();
             Log.d("JSwa", "Connected to ["+strings[0]+"]");
 
-            //uglyDoc = doc.toString();
             Elements eventTitles = doc.getElementsByAttributeValueContaining("class", "cal_title");
             Elements eventDates = doc.getElementsByAttributeValueContaining("class", "cal_date");
             //removes additional dates that are being pulled in and cause an incorrect display
@@ -70,7 +89,14 @@ class HTMLParser extends AsyncTask<String, Void, ArrayList<Event>> {
             Elements eventDescriptions = doc.getElementsByAttributeValueContaining("class", "cal_desc");
 
             for(int i = 0; i < eventTitles.size(); i++){
-                listOfEvents.add(new Event(eventTitles.get(i).text(), eventDates.get(i).text(), eventDescriptions.get(i).text()));
+                String[] splitString =  eventTitles.get(i).html().split("\\&quot;");
+                String url = "";
+                for(String line : splitString){
+                    if(line.substring(0,3).equals("htt")){
+                        url = line.substring(0,line.length());
+                    }
+                }
+                listOfEvents.add(new Event(eventTitles.get(i).text(), eventDates.get(i).text(), eventDescriptions.get(i).text(), url));
             }
 
 
