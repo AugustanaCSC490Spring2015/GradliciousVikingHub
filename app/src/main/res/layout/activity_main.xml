@@ -58,6 +58,20 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:background="#00000000" />
+
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/helpButton"
+        android:layout_gravity="right"
+        android:layout_weight="1"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:src="@mipmap/question"
+        android:scaleType="fitXY" />
 
 </RelativeLayout>

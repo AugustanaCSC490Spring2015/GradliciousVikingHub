@@ -33,6 +33,8 @@
 
         <activity android:name="edu.augustana.csc490.vikinghub.BuildingInformationScreen"
             android:label="Building Information"/>
+        <activity android:name="edu.augustana.csc490.vikinghub.Help"
+            android:label="Help Screen"/>
 
 
         <meta-data

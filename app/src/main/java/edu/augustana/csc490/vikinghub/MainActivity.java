@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
 public class MainActivity extends Activity {
@@ -16,6 +17,7 @@ public class MainActivity extends Activity {
     Button campusTourButton;
     Button campusMapButton;
     Button eventsCalendarButton;
+    ImageButton helpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class MainActivity extends Activity {
         campusTourButton = (Button) findViewById(R.id.tourButton);
         campusMapButton = (Button) findViewById(R.id.mapButton);
         eventsCalendarButton = (Button) findViewById(R.id.eventsButton);
+        helpButton = (ImageButton) findViewById(R.id.helpButton);
 
         final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
         campusTourButton.setTypeface(font);
@@ -69,6 +72,14 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent eventsCalendar = new Intent(getBaseContext(), EventsCalendar.class);
                 startActivity(eventsCalendar);
+            }
+        });
+
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent help = new Intent(getBaseContext(), Help.class);
+                startActivity(help);
             }
         });
     }

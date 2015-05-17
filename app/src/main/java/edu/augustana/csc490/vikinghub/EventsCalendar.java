@@ -1,7 +1,6 @@
 package edu.augustana.csc490.vikinghub;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,12 +16,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class EventsCalendar extends Activity {
 
@@ -41,7 +36,7 @@ public class EventsCalendar extends Activity {
             String urlString = "http://www.augustana.edu/prebuilt/acal/calpage.php?mode=js&viewid=13";
             parser.execute(urlString);
 
-            listView.setOnItemClickListener(onItemClickListener);
+            listView.setOnItemClickListener(onItemClick);
         }
 
     @Override
@@ -51,7 +46,7 @@ public class EventsCalendar extends Activity {
         return true;
     }
 
-    private ListView.OnItemClickListener onItemClickListener = new ListView.OnItemClickListener(){
+    private ListView.OnItemClickListener onItemClick = new ListView.OnItemClickListener(){
         @Override
         public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 
