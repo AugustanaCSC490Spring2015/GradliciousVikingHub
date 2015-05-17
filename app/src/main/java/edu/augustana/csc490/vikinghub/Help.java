@@ -1,9 +1,11 @@
 package edu.augustana.csc490.vikinghub;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -55,14 +57,28 @@ public class Help extends Activity{
 
             switch (position){
                 case 0:
-                    Intent callAugie = new Intent(Intent.ACTION_DIAL);
-                    callAugie.setData(Uri.parse("tel:3097947000"));
-                    startActivity(callAugie);
+                    if(isTelephonyEnabled()) {
+                        Intent callAugie = new Intent(Intent.ACTION_DIAL);
+                        callAugie.setData(Uri.parse("tel:3097947000"));
+                        startActivity(callAugie);
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Help.this);
+                        builder.setTitle("Main Phone Number");
+                        builder.setMessage("(309)-794-7000");
+                        builder.show();
+                    }
                     break;
                 case 1:
-                    Intent callEmergency = new Intent(Intent.ACTION_DIAL);
-                    callEmergency.setData(Uri.parse("tel:3097947711"));
-                    startActivity(callEmergency);
+                    if(isTelephonyEnabled()) {
+                        Intent callEmergency = new Intent(Intent.ACTION_DIAL);
+                        callEmergency.setData(Uri.parse("tel:3097947711"));
+                        startActivity(callEmergency);
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Help.this);
+                        builder.setTitle("Public Safety (Emergency)");
+                        builder.setMessage("(309)-794-7711");
+                        builder.show();
+                    }
                     break;
                 case 2:
                     Intent goToAugustana = new Intent(Intent.ACTION_VIEW);
@@ -93,5 +109,11 @@ public class Help extends Activity{
 
         }
     };
+
+    private boolean isTelephonyEnabled(){
+        TelephonyManager tm = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+        //return tm != null && tm.getSimState()==TelephonyManager.SIM_STATE_READY;
+        return false;
+    }
 
 }
