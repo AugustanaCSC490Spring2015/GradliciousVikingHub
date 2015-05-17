@@ -17,7 +17,7 @@ public class MainActivity extends Activity {
     Button campusTourButton;
     Button campusMapButton;
     Button eventsCalendarButton;
-    ImageButton helpButton;
+    Button helpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
         campusTourButton = (Button) findViewById(R.id.tourButton);
         campusMapButton = (Button) findViewById(R.id.mapButton);
         eventsCalendarButton = (Button) findViewById(R.id.eventsButton);
-        helpButton = (ImageButton) findViewById(R.id.helpButton);
+        helpButton = (Button) findViewById(R.id.helpButton);
 
         final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
         campusTourButton.setTypeface(font);
@@ -41,6 +41,9 @@ public class MainActivity extends Activity {
         eventsCalendarButton.setTypeface(font);
         eventsCalendarButton.setTextSize(24);
         eventsCalendarButton.setTextColor(Color.WHITE);
+        helpButton.setTypeface(font);
+        helpButton.setTextSize(12);
+        helpButton.setTextColor(Color.WHITE);
 
         BuildingSharedPreferences preferences = new BuildingSharedPreferences(this, new String[0]);
                 //set the click listeners
