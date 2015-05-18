@@ -32,24 +32,28 @@ public class MainActivity extends Activity {
         helpButton = (Button) findViewById(R.id.helpButton);
 
         final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
-        campusTourButton.setTypeface(font);
-        campusTourButton.setTextSize(24);
-        campusTourButton.setTextColor(Color.WHITE);
-        campusMapButton.setTypeface(font);
-        campusMapButton.setTextSize(24);
-        campusMapButton.setTextColor(Color.WHITE);
-        eventsCalendarButton.setTypeface(font);
-        eventsCalendarButton.setTextSize(24);
-        eventsCalendarButton.setTextColor(Color.WHITE);
-        helpButton.setTypeface(font);
-        helpButton.setTextSize(12);
-        helpButton.setTextColor(Color.WHITE);
+        setButtonStyles(campusTourButton, font, 24);
+        setButtonStyles(campusMapButton, font, 24);
+        setButtonStyles(eventsCalendarButton, font, 24);
+        setButtonStyles(helpButton, font, 12);
 
         BuildingSharedPreferences preferences = new BuildingSharedPreferences(this, new String[0]);
                 //set the click listeners
                 setListeners();
     }
 
+    /**
+     * @param button the button that is being edited
+     * @param font the desired font
+     * @param fontSize the desired font size
+     */
+    private void setButtonStyles(Button button, Typeface font, int fontSize){
+        button.setTypeface(font);
+        button.setTextSize(fontSize);
+        button.setTextColor(Color.WHITE);
+    }
+
+    //sets listeners for the different buttons
     private void setListeners(){
         //launch campus tour
         campusTourButton.setOnClickListener(new View.OnClickListener() {

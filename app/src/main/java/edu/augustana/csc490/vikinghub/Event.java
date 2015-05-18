@@ -43,9 +43,14 @@ public class Event {
         return eventUrl;
     }
 
+    /**
+     * @param information the String of information that is being edited
+     * @return String with backslashes removed
+     * Fixes the occasional problem of adding backslashes to the text from the HTML when there is
+     * a quotation mark or an apostrophe
+     */
     public String removeSlashes(String information){
-        information.replaceAll("\\\"", "'");
-        information.replaceAll("\\\'", "'");
+        information.replace("\\", "");
         return information;
     }
 }

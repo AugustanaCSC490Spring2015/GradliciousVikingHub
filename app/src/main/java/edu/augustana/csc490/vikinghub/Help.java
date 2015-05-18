@@ -55,6 +55,7 @@ public class Help extends Activity{
         @Override
         public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 
+            //sets action based on the item in the ListView selected
             switch (position){
                 case 0:
                     if(isTelephonyEnabled()) {
