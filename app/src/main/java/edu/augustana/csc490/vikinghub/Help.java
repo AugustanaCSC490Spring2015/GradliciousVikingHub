@@ -113,8 +113,7 @@ public class Help extends Activity{
 
     private boolean isTelephonyEnabled(){
         TelephonyManager tm = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
-        //return tm != null && tm.getSimState()==TelephonyManager.SIM_STATE_READY;
-        return false;
+        return tm != null && tm.getSimState()==TelephonyManager.SIM_STATE_READY;
     }
 
 }
