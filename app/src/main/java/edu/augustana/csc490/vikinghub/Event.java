@@ -50,7 +50,7 @@ public class Event {
      * a quotation mark or an apostrophe
      */
     public String removeSlashes(String information){
-        information.replace("\\", "");
+        information = information.replace("\\", "");
         return information;
     }
 }
