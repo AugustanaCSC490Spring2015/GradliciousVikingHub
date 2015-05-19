@@ -119,13 +119,13 @@ public class BuildingInformationScreen extends Activity{
             case "Bartholomew":
                 buildingImageView.setImageResource(R.mipmap.bartholomew);
                 break;
-            case "Betsy":
+            case "Betsey":
                 buildingImageView.setImageResource(R.mipmap.betsy);
                 break;
             case "Center":
                 buildingImageView.setImageResource(R.mipmap.thomas);
                 break;
-            case "Denkmann":
+            case "Denkman":
                 buildingImageView.setImageResource(R.mipmap.denkmann);
                 break;
             case "Doris":
