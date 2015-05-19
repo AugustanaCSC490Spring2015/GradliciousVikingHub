@@ -69,6 +69,13 @@ class HTMLParser extends AsyncTask<String, Void, ArrayList<Event>> {
         this.listOfEvents = listOfEvents;
     }
 
+     /**
+     * @param strings URL of the events calendar page
+     * @return ArrayList<Event> containing all the events
+     * Reads a page of events from the Augustana website
+     * Saves the event title, date, and description into individual Event objects
+     * Places the objects in an ArrayList and returns it
+     */
     @Override
     protected ArrayList<Event> doInBackground(String... strings) {
         try {

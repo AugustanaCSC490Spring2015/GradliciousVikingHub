@@ -7,7 +7,7 @@ import com.parse.Parse;
  * Created by Owner on 4/22/2015.
  */
 public class UseParse extends Application {
-
+    //allow connection to Parse database and allows local data storage
     @Override
     public void onCreate() {
         super.onCreate();

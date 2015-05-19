@@ -58,7 +58,7 @@ public class ListViewArrayListManager {
             }
             defaultBuildingsArrayList.add(new Building(entry.getKey(), new LatLng(buildingLat,buildingLng), buildingInformation, buildingRadius));
         }
-        sortDefualtBuildingsArrayList();
+        sortDefaultBuildingsArrayList();
     }
 
     public void addProximateBuilding(Building building){
@@ -79,7 +79,7 @@ public class ListViewArrayListManager {
     public ArrayList<Building> getProximateBuildingsArrayList(){
         return proximateBuildingsArrayList;
     }
-    public void sortDefualtBuildingsArrayList(){
+    public void sortDefaultBuildingsArrayList(){
         java.util.Collections.sort(defaultBuildingsArrayList);
     }
 }

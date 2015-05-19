@@ -55,6 +55,7 @@ public class Help extends Activity{
         @Override
         public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 
+            //sets action based on the item in the ListView selected
             switch (position){
                 case 0:
                     if(isTelephonyEnabled()) {
@@ -112,8 +113,7 @@ public class Help extends Activity{
 
     private boolean isTelephonyEnabled(){
         TelephonyManager tm = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
-        //return tm != null && tm.getSimState()==TelephonyManager.SIM_STATE_READY;
-        return false;
+        return tm != null && tm.getSimState()==TelephonyManager.SIM_STATE_READY;
     }
 
 }
