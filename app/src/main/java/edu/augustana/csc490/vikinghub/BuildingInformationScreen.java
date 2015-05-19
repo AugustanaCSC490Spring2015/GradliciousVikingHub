@@ -76,10 +76,97 @@ public class BuildingInformationScreen extends Activity{
             buildingImageName = buildingName;
         }
 
-        if(buildingImageName.equals("Hanson")){
-            buildingImageView.setImageResource(R.mipmap.hanson);
-        }else if(buildingImageName.equals("Thomas")){
-            buildingImageView.setImageResource(R.mipmap.library);
+        switch (buildingImageName){
+            case "Hanson":
+                buildingImageView.setImageResource(R.mipmap.hanson);
+                break;
+            case "Olin":
+                buildingImageView.setImageResource(R.mipmap.olin);
+                break;
+            case "Old":
+                buildingImageView.setImageResource(R.mipmap.old);
+                break;
+            case "Bergendoff":
+                buildingImageView.setImageResource(R.mipmap.bergendoff);
+                break;
+            case "College":
+                buildingImageView.setImageResource(R.mipmap.college);
+                break;
+            case "Studio":
+                buildingImageView.setImageResource(R.mipmap.art);
+                break;
+            case "Roy":
+                buildingImageView.setImageResource(R.mipmap.carver);
+                break;
+            case "Austin":
+                buildingImageView.setImageResource(R.mipmap.austin);
+                break;
+            case "Centennial":
+                buildingImageView.setImageResource(R.mipmap.centennial);
+                break;
+            case "Sorenson":
+                buildingImageView.setImageResource(R.mipmap.sorenson);
+                break;
+            case "Anderson":
+                buildingImageView.setImageResource(R.mipmap.anderson);
+                break;
+            case "Andreen":
+                buildingImageView.setImageResource(R.mipmap.andreen);
+                break;
+            case "Arbaugh":
+                buildingImageView.setImageResource(R.mipmap.arbaugh);
+                break;
+            case "Bartholomew":
+                buildingImageView.setImageResource(R.mipmap.bartholomew);
+                break;
+            case "Betsy":
+                buildingImageView.setImageResource(R.mipmap.betsy);
+                break;
+            case "Center":
+                buildingImageView.setImageResource(R.mipmap.thomas);
+                break;
+            case "Denkmann":
+                buildingImageView.setImageResource(R.mipmap.denkmann);
+                break;
+            case "Doris":
+                buildingImageView.setImageResource(R.mipmap.doris);
+                break;
+            case "Emmy":
+                buildingImageView.setImageResource(R.mipmap.evald);
+                break;
+            case "Erickson":
+                buildingImageView.setImageResource(R.mipmap.erickson);
+                break;
+            case "House":
+                buildingImageView.setImageResource(R.mipmap.house);
+                break;
+            case"Naeseth":
+                buildingImageView.setImageResource(R.mipmap.naeseth);
+                break;
+            case "Parkander":
+                buildingImageView.setImageResource(R.mipmap.parkander);
+                break;
+            case "Pepsico":
+                buildingImageView.setImageResource(R.mipmap.pepsico);
+                break;
+            case "Ryden":
+
+                break;
+            case "Seminary":
+
+                break;
+            case "Swanson":
+                buildingImageView.setImageResource(R.mipmap.swanson);
+                break;
+            case "Swenson":
+                buildingImageView.setImageResource(R.mipmap.swenson);
+                break;
+            case "Thomas":
+                buildingImageView.setImageResource(R.mipmap.thomas);
+                break;
+            case "Westerlin":
+                buildingImageView.setImageResource(R.mipmap.westerlin);
+                break;
         }
     }
 
